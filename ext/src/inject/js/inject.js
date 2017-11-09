@@ -1,6 +1,8 @@
 // Folder coordinates
 const source = 'PRJ'
 const destination = '#box1'
+const parseUrl = /(http:|https:)\/\/(www\.)?(\w|\d)+.+?\//
+const imageFiles = [ 'favicon.ico' ]
 
 
 function processData (folder, node) {
@@ -23,8 +25,9 @@ function processData (folder, node) {
 }
 
 function drawCard(data, node) {
+  let domain = data.url.match(parseUrl)
   $(node).append('<a href="'+ data.url + '" class="card" id="' + data.id + '"></a>')
-  $('#' + data.id).append('<img src="#">')
+  $('#' + data.id).append('<img src="' + domain[0]+'favicon.ico">')
 }
 
 function flattenBookmarks (arr,node) {
