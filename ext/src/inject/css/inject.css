@@ -8,7 +8,7 @@ body {
 }
 
 /* NO DATA */
-#no-data, #duplicates, #content {
+#no-data, #duplicates, #content, #no-bookmarks {
   height: 95vh;
 }
 #no-data .infotext {
@@ -16,6 +16,9 @@ body {
 }
 #duplicates .infotext {
   color: #DF9560;
+}
+#no-bookmarks .infotext {
+  color: #AE4544;
 }
 .infotext {
   text-align: center;
