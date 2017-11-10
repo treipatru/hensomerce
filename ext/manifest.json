@@ -22,7 +22,12 @@
   "permissions": [
     "bookmarks",
     "history",
-    "management"
+    "management",
+    "http://*/",
+    "https://*/"
+  ],
+  "optional_permissions": [
+    "webRequest"
   ],
   "content_scripts": [
     {
