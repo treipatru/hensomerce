@@ -1,8 +1,7 @@
 // Folder coordinates
 const source = 'prj'
 const destination = '#box1'
-const parseUrl = /(http:|https:\/\/)((www\.)?(\w|\d)+.+?\/)/
-const parseReverseDomain = /\/(\w|\d)+.(\w|\d)+/
+const parseDomain = /(http(|s):\/\/)(.[^\/]+)/
 
 const imageFiles = [ 'favicon.ico' ]
 
@@ -72,29 +71,20 @@ function makeCards (arr, node) {
 
 // Draw an element
 function drawCard(data, node) {
-  let url = data.url.match(parseUrl)
-  let domain = getDomain(url[0])
-  let origin = url[1] + domain
-  
-  $(node).hide().append('<a href="'+ url[0] + '" class="card" id="' + data.id + '"></a>')
+  let domain = getDomain(data.url)
 
+  $(node).append('<a href="'+ data.url + '" class="card" id="' + data.id + '"></a>')
+  $('#' + data.id).append('<img src="' + domain +'/favicon.ico">')
+}
 
-  $('#' + data.id).append('<img src="' + origin +'favicon.ico">')
-
-  // $('#' + data.id).append('<img src="' + domain[0]+'favicon.ico">')
+function getDomain (s) {
+    let domain = s.match(parseDomain)[0]
+    return domain
 }
 
 function toggleSection (id) {
   $('#' + id).toggleClass('hidden')
 }
-
-function getDomain (s) {
-    let rev = s.split("").reverse().join("")
-    let match = rev.match(parseReverseDomain)
-    let domain = match[0].split("").reverse().join("")
-    return domain
-}
-
 
 $(document).ready(function () {
   $('.source-name').text(source)
