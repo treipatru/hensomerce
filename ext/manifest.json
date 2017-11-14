@@ -22,29 +22,9 @@
   "permissions": [
     "bookmarks",
     "history",
-    "management",
-    "http://*/",
-    "https://*/"
+    "management"
   ],
   "optional_permissions": [
     "webRequest"
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "https://www.google.com/*"
-      ],
-      "css": [
-        "src/inject/css/inject.css"
-      ]
-    },
-    {
-      "matches": [
-        "https://www.google.com/*"
-      ],
-      "js": [
-        "src/inject/js/inject.js"
-      ]
-    }
   ]
 }
