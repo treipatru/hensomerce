@@ -2,9 +2,9 @@
   <div id="hensomerce">
     
     <div id="content" class="grid">
-      <list v-for="item in lists"
-            :key="item.id"
-            :book-id="item.bookId">
+      <list v-for="(item, index) in lists"
+            :key="index"
+            :list-index="index">
       </list>
     </div>
 
@@ -48,25 +48,10 @@ export default {
     createList: function () {
       let vm = this
 
-      let list = {
-        [vm.counter]: {
-          listIndex: vm.counter,
-          bookId: 0,
-          title: ''
-        }
-      }
-      this.saveData(list)
-    },
-    saveData: function (obj) {
-      let vm = this
-      let p = obj
-
-      chrome.storage.local.set(obj, function() {
-        console.log('success')
+      chrome.storage.local.set({ ['listIndex'+vm.counter]: 0}, function() {
         vm.incrementCounter()
-        vm.lists.push(p)
-      });
-
+        vm.updateFromStorage()
+      })
     },
     updateFromStorage: function () {
       let vm = this
@@ -79,6 +64,8 @@ export default {
         if (arr.length === 0) {
           console.log('Show onboarding')
         } else {
+          //Remove indexCounter from list of folders
+          arr.splice(0, 1)
           vm.lists = arr
         }
       })
@@ -86,10 +73,10 @@ export default {
     setCounter: function () {
       let vm = this
       chrome.storage.local.get('indexCounter', function(res) {
-        if (vm.isEmpty(res)) {
+        if (res.indexCounter === 0) {
           chrome.storage.local.set({'indexCounter': 0})
           vm.counter = 0
-        } else {
+        } else if (res.indexCounter > 0) {
           vm.counter = res.indexCounter
         }
       })
@@ -99,9 +86,6 @@ export default {
       vm.counter++
       chrome.storage.local.set({'indexCounter': vm.counter})
     }
-  },
-
-  mounted: function () {
   }
 }
 </script>
