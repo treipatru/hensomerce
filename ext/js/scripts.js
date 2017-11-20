@@ -1,8 +1,11 @@
 // Folder coordinates
-const source = 'Hensomerce'
+const source = 'asdcawe'
 const destination = '#box1'
 const parseDomain = /(http(|s):\/\/)(.[^\/]+)/
 const parseOrigin = /\w+.\w+$/
+
+let sourceInput = document.getElementById('source-input')
+
 
 
 // Draw bookmarks from folder to node #id
