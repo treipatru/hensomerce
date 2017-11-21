@@ -2,13 +2,18 @@
   <div id="hensomerce">
     
     <div id="content" class="grid">
-      <list v-for="(item, index) in lists"
-            :key="index"
-            :list-index="index">
-      </list>
+      <div class="col"
+           v-for="list in storeCache.lists">
+      </div>
     </div>
 
-    <add-button v-on:createList="createList">
+    <transition name="fade">
+      <select-folder v-if="isChoosing"
+                     v-on:saveList="saveList">
+      </select-folder>
+    </transition>
+
+    <add-button v-on:createList="toggleAddList">
     </add-button>
 
   </div>
@@ -16,75 +21,55 @@
 
 <script>
 import AddButton from './components/AddButton.vue'
-import List from './components/List.vue'
+import SelectFolder from './components/SelectFolder.vue'
 
 export default {
   created: function () {
-    this.setCounter()
-    this.updateFromStorage()
+    this.syncStorageDown()
   },
 
   components: {
     List,
     AddButton,
+    SelectFolder
   },
 
   data () {
     return {
-      counter: 0,
-      noLists: true,
+      storeCache: {},
+      isChoosing: false,
       lists: []
     }
   },
 
   methods: {
-    isEmpty: function (obj) {
-      for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-          return false
-      }
-      return true
-    },
-    createList: function () {
+    syncStorageDown: function () {
       let vm = this
-
-      chrome.storage.local.set({ ['listIndex'+vm.counter]: 0}, function() {
-        vm.incrementCounter()
-        vm.updateFromStorage()
-      })
-    },
-    updateFromStorage: function () {
-      let vm = this
-
       chrome.storage.local.get(null, function(items) {
-        let allKeys = Object(items);
-
-        let arr = Object.values(allKeys);
-
-        if (arr.length === 0) {
-          console.log('Show onboarding')
-        } else {
-          //Remove indexCounter from list of folders
-          arr.splice(0, 1)
-          vm.lists = arr
-        }
-      })
+        vm.storeCache = items
+        console.log(vm.storeCache);
+      });
     },
-    setCounter: function () {
+    syncStorageUp: function () {
       let vm = this
-      chrome.storage.local.get('indexCounter', function(res) {
-        if (res.indexCounter === 0) {
-          chrome.storage.local.set({'indexCounter': 0})
-          vm.counter = 0
-        } else if (res.indexCounter > 0) {
-          vm.counter = res.indexCounter
-        }
-      })
+      chrome.storage.local.clear();
+      chrome.storage.local.set(vm.storeCache, function() {
+      });
     },
-    incrementCounter: function () {
-      let vm = this
-      vm.counter++
-      chrome.storage.local.set({'indexCounter': vm.counter})
+    toggleAddList: function () {
+      if (this.isChoosing) {
+        this.isChoosing = false
+      } else {
+        this.isChoosing = true
+      }
+    },
+    saveList: function (obj) {
+      if (!this.storeCache.lists) {
+        this.storeCache.lists = []
+      }
+      this.storeCache.lists.push(obj)
+      this.toggleAddList()
+      this.syncStorageUp()
     }
   }
 }
