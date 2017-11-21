@@ -1,15 +1,16 @@
 <template>
   <div class="select-folder">
     <ui-select  has-search
-    :options="folders"
-    :keys="{ label: 'title', value: 'id' }"
-    v-model="userInput"
-    @select="selectFolder">
+                :options="folders"
+                :keys="{ label: 'title', value: 'id' }"
+                v-model="userInput"
+                @select="selectFolder"
+                ref="searchInput">
   </ui-select>
-  <ui-button v-if="userInput"
-             color="primary"
+  <ui-button color="primary"
              type="primary"
-             @click="saveSelection">
+             @click="saveSelection"
+             :disabled="buttonStatus">
              Save
   </ui-button>
 </div>
@@ -22,6 +23,15 @@ export default {
   components: {
     UiSelect,
     UiButton
+  },
+  computed: {
+    buttonStatus: function () {
+      if (this.userInput) {
+        return false
+      } else {
+        return true
+      }
+    }
   },
   created: function () {
     this.getChromeFolders()
@@ -92,6 +102,13 @@ export default {
       }
       this.$emit('saveList', obj)
     }
+  },
+  mounted: function () {
+    let vm = this
+
+    setTimeout(function () {
+      vm.$refs.searchInput.toggleDropdown()
+    }, 300)
   },
   props: [
   ]
