@@ -2,9 +2,10 @@
   <div id="hensomerce">
     
     <div id="content" class="grid">
-      <div class="col"
-           v-for="list in storeCache.lists">
-      </div>
+      <list v-for="(list, index) in storeCache.lists"
+            :list-data="list"
+            :key="index">
+      </list>
     </div>
 
     <transition name="fade">
@@ -20,6 +21,7 @@
 </template>
 
 <script>
+import List from './components/List.vue'
 import AddButton from './components/AddButton.vue'
 import SelectFolder from './components/SelectFolder.vue'
 
@@ -29,9 +31,9 @@ export default {
   },
 
   components: {
-    List,
     AddButton,
-    SelectFolder
+    SelectFolder,
+    List
   },
 
   data () {
@@ -47,7 +49,6 @@ export default {
       let vm = this
       chrome.storage.local.get(null, function(items) {
         vm.storeCache = items
-        console.log(vm.storeCache);
       });
     },
     syncStorageUp: function () {
