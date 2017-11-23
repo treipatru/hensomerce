@@ -1,14 +1,20 @@
 <template>
   <div class="col">
-    <a v-for="link in links"
-       :href="link.url">
-       {{link.title}}
-    </a>
+    <div class="list">
+      <ul>
+        <li v-for="link in links">
+          <a :href="link.url">
+            <img :src="'chrome://favicon/' + link.url"
+           :alt="link.title">
+           </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-import { UiSelect } from 'keen-ui';
+import { UiSelect } from 'keen-ui'
 
 export default {
   created: function () {

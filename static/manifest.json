@@ -15,7 +15,8 @@
   "permissions": [
     "bookmarks",
     "history",
-    "storage"
+    "storage",
+    "chrome://favicon/"
   ],
   "optional_permissions": [
     "webRequest"
