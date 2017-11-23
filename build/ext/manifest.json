@@ -1,6 +1,6 @@
 {
   "name": "Hensomerce",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "manifest_version": 3,
   "description": "Homescreen - New tab extension for Chrome",
   "homepage_url": "https://github.com/treipatru/hensomerce",
