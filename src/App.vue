@@ -1,29 +1,60 @@
 <template>
-  <div id="hensomerce">
-    
-    <div id="content" class="grid">
-      <list v-for="(list, index) in storeCache.lists"
-            :list-data="list"
-            :key="index">
-      </list>
+  <div id="hensomerce" :class="windowOpen ? 'active' : ''">
+
+    <app-menu v-on:emitButtonClick="handleMenuClick"
+              v-on:windowToggle="windowOpen = !windowOpen"
+              :window-open="windowOpen">
+    </app-menu>
+
+    <div class="content">
+      <transition name="fade" mode="out-in">
+
+        <!-- Render page content -->
+        <div  class="grid"
+              :key="1"
+              v-if="!windowOpen">
+              
+              <list v-for="(list, index) in storeCache.lists"
+                    :list-data="list"
+                    :key="index">
+              </list>
+        </div>
+
+        <!-- Render action window -->
+        <div id="action-window"
+             :key="2"
+             v-if="windowOpen">
+             <transition name="fade" mode="out-in">
+
+               <add-folder v-if="viewActive === 'add'"
+                           :key="1"
+                           v-on:saveList="saveList"
+                           v-on:cancelSelection="windowOpen = !windowOpen">
+               </add-folder>
+
+                <manage v-if="viewActive === 'manage'"
+                        :key="2"> 
+                </manage>
+
+                <settings v-if="viewActive === 'settings'"
+                          :key="3"> 
+                </settings>
+
+             </transition>
+        </div>
+      </transition>
+
     </div>
-
-    <transition name="fade">
-      <select-folder v-if="isChoosing"
-                     v-on:saveList="saveList">
-      </select-folder>
-    </transition>
-
-    <add-button v-on:createList="toggleAddList">
-    </add-button>
-
   </div>
 </template>
 
 <script>
+import AppMenu from './components/AppMenu.vue'
 import List from './components/List.vue'
-import AddButton from './components/AddButton.vue'
-import SelectFolder from './components/SelectFolder.vue'
+
+import AddFolder from './components/AddFolder.vue'
+import Manage from './components/Manage.vue'
+import Settings from './components/Settings.vue'
 
 export default {
   created: function () {
@@ -31,16 +62,19 @@ export default {
   },
 
   components: {
-    AddButton,
-    SelectFolder,
-    List
+    AppMenu,
+    List,
+    AddFolder,
+    Manage,
+    Settings
   },
 
   data () {
     return {
       storeCache: {},
-      isChoosing: false,
-      lists: []
+      windowOpen: false,
+      lists: [],
+      viewActive: ''
     }
   },
 
@@ -57,20 +91,16 @@ export default {
       chrome.storage.local.set(vm.storeCache, function() {
       });
     },
-    toggleAddList: function () {
-      if (this.isChoosing) {
-        this.isChoosing = false
-      } else {
-        this.isChoosing = true
-      }
-    },
     saveList: function (obj) {
       if (!this.storeCache.lists) {
         this.storeCache.lists = []
       }
       this.storeCache.lists.push(obj)
-      this.toggleAddList()
+      this.windowOpen = !this.windowOpen
       this.syncStorageUp()
+    },
+    handleMenuClick: function (id) {
+      id === this.viewActive ? this.viewActive = '' : this.viewActive = id
     }
   }
 }
