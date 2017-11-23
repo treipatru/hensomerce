@@ -2,7 +2,7 @@
   <div id="hensomerce" :class="windowOpen ? 'active' : ''">
 
     <app-menu v-on:emitButtonClick="handleMenuClick"
-              v-on:windowToggle="windowOpen = !windowOpen"
+              v-on:windowToggle="windowToggle"
               :window-open="windowOpen">
     </app-menu>
 
@@ -10,7 +10,7 @@
       <transition name="fade" mode="out-in">
 
         <!-- Render page content -->
-        <div  class="grid"
+        <div  class="grid-3_sm-2"
               :key="1"
               v-if="!windowOpen">
               
@@ -101,6 +101,10 @@ export default {
     },
     handleMenuClick: function (id) {
       id === this.viewActive ? this.viewActive = '' : this.viewActive = id
+    },
+    windowToggle: function () {
+      this.windowOpen = !this.windowOpen
+      this.viewActive = ''
     }
   }
 }
