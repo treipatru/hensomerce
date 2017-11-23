@@ -1,6 +1,6 @@
 {
   "name": "hensomerce",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Home screen - New tab extension for Chrome",
   "scripts": {
     "watch": "webpack --watch --config webpack.base.config.js",
@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/treipatru/hensomerce/issues"
   },
-  "homepage": "https://github.com/treipatru/hensomerce#readme",
+  "homepage": "https://github.com/treipatru/hensomerce",
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
