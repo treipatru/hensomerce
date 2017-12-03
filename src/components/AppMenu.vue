@@ -7,22 +7,27 @@
 
             <div class="menu-actions"
                   v-if="windowOpen">
-                  <ui-button type="secondary"
-                             size="small"
-                             v-on:click="emitButtonClick('settings')">
-                             Settings
-                  </ui-button>
-                  <ui-button type="secondary"
-                             size="small"
-                             v-on:click="emitButtonClick('manage')">
-                             Manage
-                  </ui-button>
-                  <ui-button type="secondary"
-                             size="small"
-                             ref="add"
-                             v-on:click="emitButtonClick('add')">
-                             Add
-                  </ui-button>
+                  <a href="#"
+                     ref="settings"
+                     v-bind:class="['menu-item', viewActive === 'settings' ? 'active' : '']"
+                     v-on:click.prevent="emitButtonClick('settings')">
+                     Settings
+                     <ui-ripple-ink trigger="settings"></ui-ripple-ink>
+                  </a>
+                  <a href="#"
+                     v-bind:class="['menu-item', viewActive === 'manage' ? 'active' : '']"
+                     ref="manage"
+                     v-on:click.prevent="emitButtonClick('manage')">
+                     Manage
+                     <ui-ripple-ink trigger="manage"></ui-ripple-ink>
+                  </a>
+                  <a href="#"
+                     v-bind:class="['menu-item', viewActive === 'add' ? 'active' : '']"
+                     ref="add"
+                     v-on:click.prevent="emitButtonClick('add')">
+                    Add
+                    <ui-ripple-ink trigger="add"></ui-ripple-ink>
+                  </a>
             </div>
           </transition>
 
@@ -38,12 +43,12 @@
 <script>
 import MenuButton from './MenuButton.vue'
 
-import { UiButton } from 'keen-ui';
+import { UiRippleInk } from 'keen-ui';
 
 export default {
   components: {
     MenuButton,
-    UiButton
+    UiRippleInk
   },
   data () {
     return {
@@ -58,7 +63,7 @@ export default {
     }
   },
   props: [
-    'windowOpen'
+    'windowOpen', 'viewActive'
   ]
 }
 </script>

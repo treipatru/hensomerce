@@ -3,10 +3,11 @@
 
     <app-menu v-on:emitButtonClick="handleMenuClick"
               v-on:windowToggle="windowToggle"
-              :window-open="windowOpen">
+              :window-open="windowOpen"
+              :view-active="viewActive">
     </app-menu>
 
-    <div class="content">
+    <div v-bind:class="['content', {'active' : viewActive}]">
       <transition name="fade" mode="out-in">
 
         <!-- Render page content -->
@@ -100,7 +101,7 @@ export default {
       this.syncStorageUp()
     },
     handleMenuClick: function (id) {
-      id === this.viewActive ? this.viewActive = '' : this.viewActive = id
+      this.viewActive = id
     },
     windowToggle: function () {
       this.windowOpen = !this.windowOpen
