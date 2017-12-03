@@ -10,7 +10,7 @@
       <transition name="fade" mode="out-in">
 
         <!-- Render page content -->
-        <div  class="grid-3_sm-2"
+        <div  v-bind:class="[ 'grid-center', 'grid-3_sm-2']"
               :key="1"
               v-if="!windowOpen">
               
