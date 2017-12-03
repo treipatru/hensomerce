@@ -56,22 +56,33 @@ export default {
       })
     },
     getFoldersData: function (obj) {
-      // Recursively look for bookmarks in a folder
+      // Recursively look for bookmarks in a folder and create the select
+      // list from folders without 
       let vm = this
 
       if (obj.children) {
-        let entry = {
-          id: obj.id,
-          title: obj.title
-        }
-
-        if (entry.title) {
-          vm.folders.push(entry)
-        }
-
+        // If obj has children skip
         for (var i = 0; i < obj.children.length;i++) {
           vm.getFoldersData(obj.children[i])
         }
+      }
+      else if (!obj.children) {
+        // If obj does not have children get it's parent and add it to select
+        chrome.bookmarks.get(obj.parentId, function(res) {
+          if (res[0].title) {
+            let entry = {
+              id: obj.parentId,
+              title: res[0].title
+            }
+
+            // Don't duplicate 
+            let lastFolder = vm.folders[vm.folders.length-1] || ''
+            
+            if (entry.title !== lastFolder.title) {
+              vm.folders.push(entry)
+            }
+          }
+        })
       }
     },
     selectFolder: function () {

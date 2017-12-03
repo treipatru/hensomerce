@@ -11,14 +11,27 @@
       <transition name="fade" mode="out-in">
 
         <!-- Render page content -->
-        <div  v-bind:class="[ 'grid-center', 'grid-3_sm-2']"
-              :key="1"
-              v-if="!windowOpen">
-              
-              <list v-for="(list, index) in storeCache.lists"
-                    :list-data="list"
-                    :key="index">
-              </list>
+        <div :key="1"
+             v-if="!windowOpen">
+              <transition name="fade"
+                          mode="out-in">
+                <div v-bind:class="['grid-center-column-middle']"
+                     v-if="!hasContent"
+                     :key="1">
+                  <no-content>
+                  </no-content>
+                </div>
+
+                <div v-bind:class="[ 'grid-center', 'grid-4_sm-2_md-3']"
+                     v-if="hasContent"
+                     :key="2">
+                  <list v-for="(list, index) in storeCache.lists"
+                      :list-data="list"
+                      :key="index">
+                  </list>
+                </div>
+
+            </transition>
         </div>
 
         <!-- Render action window -->
@@ -53,6 +66,7 @@
 import AppMenu from './components/AppMenu.vue'
 import List from './components/List.vue'
 
+import NoContent from './components/NoContent.vue'
 import AddFolder from './components/AddFolder.vue'
 import Manage from './components/Manage.vue'
 import Settings from './components/Settings.vue'
@@ -65,16 +79,29 @@ export default {
   components: {
     AppMenu,
     List,
+    NoContent,
     AddFolder,
     Manage,
     Settings
+  },
+
+  computed: {
+    hasContent: function () {
+      if (this.lists.length === 0) {
+        return false
+      } else if (this.lists.length > 0) {
+        return true
+      }
+    },
+    lists: function () {
+      return this.storeCache.lists || []
+    }
   },
 
   data () {
     return {
       storeCache: {},
       windowOpen: false,
-      lists: [],
       viewActive: ''
     }
   },

@@ -8,8 +8,7 @@
         <li v-for="link in links">
           <a :href="link.url"
              :title="link.url">
-            <img :src="'chrome://favicon/' + link.url"
-           :alt="link.title">
+            <img :src="'chrome://favicon/' + link.url">
            <span>{{link.title}}</span>
            </a>
         </li>

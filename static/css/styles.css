@@ -17,9 +17,8 @@ body {
 }
 
 #hensomerce {
-  height: 100%;
+  height: 97vh;
   width: 100%;
-  overflow: hidden;
   transition: background 0.4s ease-in-out;
   padding: 0.5rem;
 }
@@ -59,9 +58,27 @@ body {
   border-radius: 0.1rem 0.1rem 0 0;
 }
 
+.menu-item:hover{
+  color: #2196f3;
+}
+
 .menu-item.active{
   background: #2196f3;
   color: #FFF;
+}
+
+/* NO-CONTENT
+/* ----------------*/
+.infotext {
+  margin-top: 15vh;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.emoji {
+  text-align: center;
+  font-size: 4rem;
+  margin: 0;
 }
 
 /* CONTENT
@@ -73,7 +90,7 @@ body {
 }
 
 .content.active {
-  border-color: #F8F9FB;
+  /*border-color: rgba(33, 150, 243, 0.3);*/
 }
 
 .list {
