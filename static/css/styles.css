@@ -21,6 +21,7 @@ body {
   width: 100%;
   transition: background 0.4s ease-in-out;
   padding: 0.5rem;
+  overflow-x: hidden;
 }
 
 #hensomerce.active {
@@ -84,13 +85,34 @@ body {
 /* CONTENT
 /* ----------------*/
 .content {
-  height: 100%;
   border-top: 1px solid transparent;
   transition: all 0.2s cubic-bezier(.25,.8,.25,1);
 }
 
 .content.active {
   /*border-color: rgba(33, 150, 243, 0.3);*/
+}
+
+.boxes-container {
+  width: 95%;
+  margin: auto;
+}
+
+.box {
+  width: 32%;
+  background: #FFF;
+}
+.box.is-dragging {
+  z-index: 5;
+}
+.box.is-dragging > .list {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+@media (max-width: 64rem) {
+  .box {
+    width: 48%;
+  }
 }
 
 .list {
