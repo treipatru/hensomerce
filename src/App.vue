@@ -8,55 +8,65 @@
     </app-menu>
 
     <div v-bind:class="['content', {'active' : viewActive}]">
-      <transition name="fade" mode="out-in">
+
+
+
+      <transition-group name="fade" mode="out-in">
 
         <!-- Render page content -->
         <div :key="1"
-             v-if="!windowOpen">
-              <transition name="fade"
-                          mode="out-in">
-                <div v-bind:class="['grid-center-column-middle']"
-                     v-if="!hasContent"
-                     :key="1">
-                  <no-content>
-                  </no-content>
-                </div>
+             v-show="!windowOpen">
+             <transition-group name="fade"
+                               mode="out-in">
+                               <div v-bind:class="['grid-center-column-middle']"
+                                    v-show="!hasContent"
+                                    :key="1">
+                                    <no-content>
+                                    </no-content>
+                               </div>
 
-                <div v-bind:class="[ 'grid-center', 'grid-4_sm-2_md-3']"
-                     v-if="hasContent"
-                     :key="2">
-                  <list v-for="(list, index) in storeCache.lists"
-                      :list-data="list"
-                      :key="index">
-                  </list>
-                </div>
-
-            </transition>
+                               <div class="boxes-container"
+                                    v-show="hasContent"
+                                    ref="boxesContainer"
+                                    :key="2"
+                                    v-packery='{
+                                     itemSelector: ".box",
+                                     percentPosition: true,
+                                     gutter: 15,
+                                     initLayout: false,
+                                    }'>
+                                    <div v-for="(list, index) in storeCache.lists"
+                                         v-packery-item class='box'
+                                         :key="index">
+                                         <list :list-data="list">
+                                         </list>
+                                    </div>
+                               </div>
+              </transition-group>
         </div>
 
         <!-- Render action window -->
         <div id="action-window"
              :key="2"
-             v-if="windowOpen">
-             <transition name="fade" mode="out-in">
+             v-show="windowOpen">
+             <transition name="fade"
+                         mode="out-in">
+                         <add-folder v-if="viewActive === 'add'"
+                                     :key="1"
+                                     v-on:saveList="saveList"
+                                     v-on:cancelSelection="windowOpen = !windowOpen">
+                         </add-folder>
 
-               <add-folder v-if="viewActive === 'add'"
-                           :key="1"
-                           v-on:saveList="saveList"
-                           v-on:cancelSelection="windowOpen = !windowOpen">
-               </add-folder>
+                         <manage v-if="viewActive === 'manage'"
+                                 :key="2">
+                         </manage>
 
-                <manage v-if="viewActive === 'manage'"
-                        :key="2"> 
-                </manage>
-
-                <settings v-if="viewActive === 'settings'"
-                          :key="3"> 
-                </settings>
-
+                         <settings v-if="viewActive === 'settings'"
+                                   :key="3">
+                         </settings>
              </transition>
         </div>
-      </transition>
+      </transition-group>
 
     </div>
   </div>
@@ -87,9 +97,13 @@ export default {
 
   computed: {
     hasContent: function () {
-      if (this.lists.length === 0) {
-        return false
-      } else if (this.lists.length > 0) {
+      if (this.initialized) {
+        if (this.lists.length === 0) {
+          return false
+        } else if (this.lists.length > 0) {
+          return true
+        }
+      } else {
         return true
       }
     },
@@ -102,7 +116,8 @@ export default {
     return {
       storeCache: {},
       windowOpen: false,
-      viewActive: ''
+      viewActive: '',
+      initialized: false
     }
   },
 
@@ -111,13 +126,14 @@ export default {
       let vm = this
       chrome.storage.local.get(null, function(items) {
         vm.storeCache = items
-      });
+        vm.initialized = true
+      })
     },
     syncStorageUp: function () {
       let vm = this
-      chrome.storage.local.clear();
+      chrome.storage.local.clear()
       chrome.storage.local.set(vm.storeCache, function() {
-      });
+      })
     },
     saveList: function (obj) {
       if (!this.storeCache.lists) {
