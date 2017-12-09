@@ -1,5 +1,4 @@
 <template>
-  <div class="col">
     <div class="list">
       <div class="list-header">
         <p>{{folderName}}</p>
@@ -14,7 +13,6 @@
         </li>
       </ul>
     </div>
-  </div>
 </template>
 
 <script>
