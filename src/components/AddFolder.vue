@@ -9,12 +9,19 @@
                   ref="searchInput"
                   class="search-input">
       </ui-select>
+
+      <ui-checkbox v-model="includeSubfolders"
+                   :disabled="!selHasSubfolders">
+        Include subfolders?
+      </ui-checkbox>
+
       <ui-button color="primary"
                  type="secondary"
                  @click="cancelSelection"
                  :class="userInput ? 'visible' : 'invisible'">
                  Cancel
       </ui-button>
+
       <ui-button color="primary"
                  type="primary"
                  @click="saveSelection"
@@ -27,12 +34,16 @@
 </template>
 
 <script>
-import { UiSelect, UiButton } from 'keen-ui';
+import { UiSelect, UiButton, UiCheckbox } from 'keen-ui';
 
 export default {
   components: {
     UiSelect,
-    UiButton
+    UiButton,
+    UiCheckbox
+  },
+
+  computed: {
   },
 
   created: function () {
@@ -44,7 +55,10 @@ export default {
       folders: [],
       userInput: '',
       folderChromeData: [],
-      links: []
+      links: [],
+      linksRec: [],
+      includeSubfolders: false,
+      selHasSubfolders: false
     }
   },
 
@@ -91,18 +105,15 @@ export default {
       chrome.bookmarks.getChildren(vm.userInput.id, function(res) {
         vm.folderChromeData = res
         vm.getChildren(vm.folderChromeData)
+        vm.getChildrenRec(vm.folderChromeData)
       })
     },
     getChildren: function (arr) {
-      // Recursively extracts bookmarks from a folder
+      // Extracts first level bookmarks from a folder
       let vm = this
 
       for (let elem of arr) {
-        if (!elem.url) {
-          chrome.bookmarks.getChildren(elem.id, function (res) {
-            vm.getChildren(res)
-          })
-        } else {
+        if (elem.url) {
           let link = {
             title: elem.title,
             url: elem.url
@@ -111,10 +122,34 @@ export default {
         }
       }
     },
-    saveSelection: function () {
-      let obj = {
-        [this.userInput.title]: this.links
+    getChildrenRec: function (arr) {
+      // Recursively extracts bookmarks from a folder
+      let vm = this
+
+      for (let elem of arr) {
+        if (!elem.url) {
+          chrome.bookmarks.getChildren(elem.id, function (res) {
+            vm.getChildrenRec(res)
+            vm.selHasSubfolders = true
+          })
+        } else {
+          let link = {
+            title: elem.title,
+            url: elem.url
+          }
+          vm.linksRec.push(link)
+        }
       }
+    },
+    saveSelection: function () {
+      let obj = {}
+
+      if (this.includeSubfolders) {
+        obj[this.userInput.title] = this.linksRec
+      } else {
+        obj[this.userInput.title] = this.links
+      }
+
       this.$emit('saveList', obj)
     },
     cancelSelection: function () {
@@ -123,11 +158,6 @@ export default {
   },
 
   mounted: function () {
-    let vm = this
-
-    setTimeout(function () {
-      vm.$refs.searchInput.toggleDropdown()
-    }, 200)
   }
 }
 </script>
