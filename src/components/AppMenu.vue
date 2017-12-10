@@ -3,16 +3,19 @@
     <div class="grid-right reset-space">
       <div class="col reset-space">
         <div class="menu-wrapper">
-          <transition name="fade">
 
+          <menu-button v-on:windowToggle="windowToggle">
+          </menu-button>
+
+          <transition name="fade">
             <div class="menu-actions"
                   v-if="windowOpen">
                   <a href="#"
-                     ref="settings"
-                     v-bind:class="['menu-item', viewActive === 'settings' ? 'active' : '']"
-                     v-on:click.prevent="emitButtonClick('settings')">
-                     Settings
-                     <ui-ripple-ink trigger="settings"></ui-ripple-ink>
+                     v-bind:class="['menu-item', viewActive === 'add' ? 'active' : '']"
+                     ref="add"
+                     v-on:click.prevent="emitButtonClick('add')">
+                    Add
+                    <ui-ripple-ink trigger="add"></ui-ripple-ink>
                   </a>
                   <a href="#"
                      v-bind:class="['menu-item', viewActive === 'manage' ? 'active' : '']"
@@ -22,18 +25,14 @@
                      <ui-ripple-ink trigger="manage"></ui-ripple-ink>
                   </a>
                   <a href="#"
-                     v-bind:class="['menu-item', viewActive === 'add' ? 'active' : '']"
-                     ref="add"
-                     v-on:click.prevent="emitButtonClick('add')">
-                    Add
-                    <ui-ripple-ink trigger="add"></ui-ripple-ink>
+                     ref="settings"
+                     v-bind:class="['menu-item', viewActive === 'settings' ? 'active' : '']"
+                     v-on:click.prevent="emitButtonClick('settings')">
+                     Settings
+                     <ui-ripple-ink trigger="settings"></ui-ripple-ink>
                   </a>
             </div>
           </transition>
-
-          <menu-button v-on:windowToggle="windowToggle">
-          </menu-button>
-
         </div>
       </div>
     </div>

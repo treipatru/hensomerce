@@ -1,10 +1,10 @@
 <template>
   <div id="menu-button">
-    <ui-icon-button icon="more_vert" 
+    <ui-icon-button icon="menu" 
                     size="small"
-                    color="primary"
                     type="secondary"
                     @click="windowToggle">
+                    <slot><MenuIcon class="menu-icon"/></slot>
     </ui-icon-button>
 
     <transition name="fade">
@@ -16,10 +16,12 @@
 
 <script>
   import { UiIconButton } from 'keen-ui'
+  import MenuIcon from '../svg/menu.svg'
 
   export default {
     components: {
-      UiIconButton
+      UiIconButton,
+      MenuIcon
     },
     methods: {
       windowToggle: function () {
