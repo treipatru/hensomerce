@@ -22,7 +22,11 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'vue-loader',
       },
-    ],
+      {
+        test: /\.svg$/,
+        loader: 'vue-svg-loader'
+      }
+    ]
   },
 
   output: {
