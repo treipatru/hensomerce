@@ -18,12 +18,9 @@
              v-show="!windowOpen">
              <transition-group name="fade"
                                mode="out-in">
-                               <div v-bind:class="['grid-center-column-middle']"
-                                    v-show="!hasContent"
-                                    :key="1">
-                                    <no-content>
-                                    </no-content>
-                               </div>
+                               <no-content v-show="!hasContent"
+                                           :key="1">
+                               </no-content>
 
                                <div class="boxes-container"
                                     v-show="hasContent"
