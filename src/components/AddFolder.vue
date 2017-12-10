@@ -1,34 +1,41 @@
 <template>
   <div class="view">
-    <div class="body">
-      <ui-select  has-search
-                  :options="folders"
-                  :keys="{ label: 'title', value: 'id' }"
-                  v-model="userInput"
-                  @select="selectFolder"
-                  ref="searchInput"
-                  class="search-input">
-      </ui-select>
+    <div class="grid-12-column">
+      <div class="col-4" data-push-left="off-4">
+        <ui-select  has-search
+                    :options="folders"
+                    :keys="{ label: 'title', value: 'id' }"
+                    v-model="userInput"
+                    @select="selectFolder"
+                    ref="searchInput"
+                    class="search-input">
+        </ui-select>
+      </div>
 
-      <ui-checkbox v-model="includeSubfolders"
-                   :disabled="!selHasSubfolders">
-        Include subfolders?
-      </ui-checkbox>
+      <div class="col-4" data-push-left="off-4">
+          <ui-checkbox v-model="includeSubfolders"
+                     :disabled="!selHasSubfolders">
+          Include subfolders?
+        </ui-checkbox>
+      </div>
 
-      <ui-button color="primary"
-                 type="secondary"
-                 @click="cancelSelection"
-                 :class="userInput ? 'visible' : 'invisible'">
-                 Cancel
-      </ui-button>
+      <div class="col-4 center-content" data-push-left="off-4">
+        <ui-button color="primary"
+                   type="secondary"
+                   @click="cancelSelection"
+                   class="">
+                   Cancel
+        </ui-button>
 
-      <ui-button color="primary"
-                 type="primary"
-                 @click="saveSelection"
-                 :class="userInput ? 'visible' : 'invisible'"
-                 :disabled="userInput ? false : true">
-                 Save
-      </ui-button>
+        <ui-button color="primary"
+                   type="primary"
+                   @click="saveSelection"
+                   class=""
+                   :disabled="userInput ? false : true">
+                   Save
+        </ui-button>
+      </div>
+    </div>
   </div>
 </div>
 </template>
@@ -41,9 +48,6 @@ export default {
     UiSelect,
     UiButton,
     UiCheckbox
-  },
-
-  computed: {
   },
 
   created: function () {
@@ -101,6 +105,9 @@ export default {
     },
     selectFolder: function () {
       let vm = this
+
+      // Clear previous folder status
+      vm.selHasSubfolders = false
 
       chrome.bookmarks.getChildren(vm.userInput.id, function(res) {
         vm.folderChromeData = res

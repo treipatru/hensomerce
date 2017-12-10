@@ -1,6 +1,6 @@
 <template>
     <div class="onboarding">
-      <p class="infotext">Add a folder to get started.</p>
+      <h1>Add a folder to get started.</h1>
       <div class="fire-container">
         <span class="emoji">
           &#x1F525;

@@ -1,10 +1,16 @@
 <template>
-  <ui-button type="primary"
-             size="small"
-             color="red"
-             @click="clearStorage">
-             Reset Data
-  </ui-button>
+  <div class="view">
+    <div class="grid-12-column">
+      <div class="col-4 center-content" data-push-left="off-4">
+        <ui-button type="primary"
+                   size="small"
+                   color="red"
+                   @click="clearStorage">
+                   Reset Data
+        </ui-button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

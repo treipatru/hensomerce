@@ -44,6 +44,7 @@
 
         <!-- Render action window -->
         <div id="action-window"
+             class="grid"
              :key="2"
              v-show="windowOpen">
              <transition name="fade"
