@@ -95,23 +95,22 @@ export default {
   computed: {
     hasContent: function () {
       if (this.initialized) {
-        if (this.lists.length === 0) {
+        if (!this.storeCache.lists) {
           return false
-        } else if (this.lists.length > 0) {
+        } else if (this.storeCache.lists) {
           return true
         }
       } else {
         return true
       }
-    },
-    lists: function () {
-      return this.storeCache.lists || []
     }
   },
 
   data () {
     return {
-      storeCache: {},
+      storeCache: {
+        lists: null
+      },
       windowOpen: false,
       viewActive: '',
       initialized: false
