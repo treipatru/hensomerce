@@ -124,6 +124,7 @@ export default {
       chrome.storage.local.get(null, function(items) {
         vm.storeCache = items
         vm.initialized = true
+        console.log(vm.storeCache)
       })
     },
     syncStorageUp: function () {
@@ -132,11 +133,12 @@ export default {
       chrome.storage.local.set(vm.storeCache, function() {
       })
     },
-    saveList: function (obj) {
+    saveList: function (obj, id) {
       if (!this.storeCache.lists) {
-        this.storeCache.lists = []
+        this.storeCache.lists = {}
       }
-      this.storeCache.lists.push(obj)
+      this.storeCache.lists[id] = obj
+      console.log(this.storeCache.lists)
       this.windowOpen = !this.windowOpen
       this.syncStorageUp()
     },
