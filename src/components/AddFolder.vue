@@ -17,6 +17,10 @@
                      :disabled="!selHasSubfolders">
           Include subfolders?
         </ui-checkbox>
+        <ui-checkbox v-model="makeChildrenBoxes"
+                     :disabled="!includeSubfolders">
+          In individual boxes?
+        </ui-checkbox>
       </div>
 
       <div class="col-4 center-content" data-push-left="off-4">
@@ -62,7 +66,8 @@ export default {
       links: [],
       linksRec: [],
       includeSubfolders: false,
-      selHasSubfolders: false
+      selHasSubfolders: false,
+      makeChildrenBoxes: false
     }
   },
 
@@ -116,7 +121,7 @@ export default {
       })
     },
     getChildren: function (arr) {
-      // Extracts first level bookmarks from a folder
+      // Extract first level bookmarks from a folder
       let vm = this
 
       for (let elem of arr) {
@@ -130,16 +135,20 @@ export default {
       }
     },
     getChildrenRec: function (arr) {
-      // Recursively extracts bookmarks from a folder
+      // Recursively extract bookmarks from a folder
       let vm = this
 
       for (let elem of arr) {
+        // If it's a folder
         if (!elem.url) {
           chrome.bookmarks.getChildren(elem.id, function (res) {
             vm.getChildrenRec(res)
+
+            //Allow user to select subfolders
             vm.selHasSubfolders = true
           })
         } else {
+          // Or a bookmark
           let link = {
             title: elem.title,
             url: elem.url
@@ -149,15 +158,19 @@ export default {
       }
     },
     saveSelection: function () {
-      let obj = {}
-
-      if (this.includeSubfolders) {
-        obj[this.userInput.title] = this.linksRec
-      } else {
-        obj[this.userInput.title] = this.links
+      let obj = {
+        name: this.userInput.title,
+        id: this.userInput.id,
+        links: null
       }
 
-      this.$emit('saveList', obj)
+      if (this.includeSubfolders) {
+        obj.links = this.linksRec
+      } else {
+        obj.links = this.links
+      }
+
+      this.$emit('saveList', obj, obj.id)
     },
     cancelSelection: function () {
       this.$emit('cancelSelection')
