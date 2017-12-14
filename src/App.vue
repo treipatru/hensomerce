@@ -34,8 +34,9 @@
                                     }'>
                                     <div v-for="(list, index) in storeCache.lists"
                                          v-packery-item class='box'
-                                         :key="index">
-                                         <list :list-data="list">
+                                         :key="list.id">
+                                         <list :list-data="list"
+                                               v-on:deleteList="deleteList">
                                          </list>
                                     </div>
                                </div>
@@ -51,6 +52,7 @@
                          mode="out-in">
                          <add-folder v-if="viewActive === 'add'"
                                      :key="1"
+                                     :lists="storeCache.lists"
                                      v-on:saveList="saveList"
                                      v-on:cancelSelection="windowOpen = !windowOpen">
                          </add-folder>
@@ -71,6 +73,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import AppMenu from './components/AppMenu.vue'
 import List from './components/List.vue'
 
@@ -95,14 +98,10 @@ export default {
 
   computed: {
     hasContent: function () {
-      if (this.initialized) {
-        if (!this.storeCache.lists) {
-          return false
-        } else if (this.storeCache.lists) {
-          return true
-        }
-      } else {
+      if (this.storeCache.lists) {
         return true
+      } else {
+        return false
       }
     }
   },
@@ -110,11 +109,10 @@ export default {
   data () {
     return {
       storeCache: {
-        lists: null
+        lists: {}
       },
       windowOpen: false,
-      viewActive: '',
-      initialized: false
+      viewActive: ''
     }
   },
 
@@ -123,8 +121,6 @@ export default {
       let vm = this
       chrome.storage.local.get(null, function(items) {
         vm.storeCache = items
-        vm.initialized = true
-        console.log(vm.storeCache)
       })
     },
     syncStorageUp: function () {
@@ -137,9 +133,14 @@ export default {
       if (!this.storeCache.lists) {
         this.storeCache.lists = {}
       }
-      this.storeCache.lists[id] = obj
-      console.log(this.storeCache.lists)
+
+      Vue.set(this.storeCache.lists, id, obj)
+
       this.windowOpen = !this.windowOpen
+      this.syncStorageUp()
+    },
+    deleteList: function (id) {
+      Vue.delete(this.storeCache.lists, id)
       this.syncStorageUp()
     },
     handleMenuClick: function (id) {

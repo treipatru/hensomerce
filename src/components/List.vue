@@ -2,6 +2,10 @@
     <div class="list">
       <div class="list-header">
         <p>{{this.listData.name}}</p>
+        <i class="material-icons close"
+           @click="deleteList">
+           &#xE5CD;
+        </i>
       </div>
       <ul>
         <li v-for="link in listData.links">
@@ -16,14 +20,20 @@
 </template>
 
 <script>
-
+  import CloseIcon from '../svg/menu.svg'
 export default {
+  components: {
+    CloseIcon
+  },
   data () {
     return {
     }
   },
 
   methods: {
+    deleteList: function () {
+      this.$emit('deleteList', this.listData.id)
+    }
   },
 
   props: [
