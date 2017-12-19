@@ -55,7 +55,7 @@ export default {
   },
 
   created: function () {
-    this.getChromeFolders()
+    this.getChromeData()
   },
 
   data () {
@@ -63,8 +63,8 @@ export default {
       folders: [],
       userInput: '',
       folderChromeData: [],
-      links: [],
-      linksRec: [],
+      links: {},
+      linksRec: {},
       includeSubfolders: false,
       selHasSubfolders: false,
       makeChildrenBoxes: false
@@ -72,7 +72,8 @@ export default {
   },
 
   methods: {
-    getChromeFolders: function () {
+    getChromeData: function () {
+      // Get top level bookmark folders
       let vm = this
       chrome.bookmarks.getTree(function (res) {
         vm.getFoldersData(res[0])
@@ -127,11 +128,10 @@ export default {
 
       for (let elem of arr) {
         if (elem.url) {
-          let link = {
+          vm.links[elem.id] = {
             title: elem.title,
             url: elem.url
           }
-          vm.links.push(link)
         }
       }
     },
@@ -150,11 +150,12 @@ export default {
           })
         } else {
           // Or a bookmark
-          let link = {
-            title: elem.title,
-            url: elem.url
+          if (elem.url) {
+            vm.linksRec[elem.id] = {
+              title: elem.title,
+              url: elem.url
+            }
           }
-          vm.linksRec.push(link)
         }
       }
     },
