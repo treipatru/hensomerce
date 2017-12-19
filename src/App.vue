@@ -158,10 +158,12 @@ export default {
       console.log('Created: ' + id)
       console.log(obj)
     })
+
     chrome.bookmarks.onRemoved.addListener(function(id, obj) {
       console.log('Removed: ' + id)
       console.log(obj)
     })
+
     chrome.bookmarks.onChanged.addListener(function(id, obj) {
       chrome.bookmarks.get(id, function(res) {
         let parent = res[0].parentId
@@ -171,13 +173,22 @@ export default {
         if (vm.storeCache.lists[parent]) {
           vm.storeCache.lists[parent].links[id].title = res[0].title
           vm.storeCache.lists[parent].links[id].url = res[0].url
+          vm.syncStorageUp()
+        }
+
+        // If obj is a folder in the grid
+        if (vm.storeCache.lists[id]) {
+          vm.storeCache.lists[id].name = res[0].title
+          vm.syncStorageUp()
         }
       })
     })
+
     chrome.bookmarks.onMoved.addListener(function(id, obj) {
       console.log('Moved: ' + id)
       console.log(obj)
     })
+
     chrome.bookmarks.onChildrenReordered.addListener(function(id, obj) {
       console.log('Children reordered: ' + id)
       console.log(obj)
