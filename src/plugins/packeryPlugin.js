@@ -42,8 +42,8 @@ packeryPlugin.install = function (Vue, options)
                 packeryDraw(parent)
 
                 // Register drag event
-                let draggie = new Draggabilly( node )
-                el.packery.bindDraggabillyEvents( draggie )
+                // let draggie = new Draggabilly( node )
+                // el.packery.bindDraggabillyEvents( draggie )
             })
 
             packeryEvents.$on(CHANGE, node =>
