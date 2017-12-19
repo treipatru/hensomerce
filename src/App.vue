@@ -150,6 +150,38 @@ export default {
       this.windowOpen = !this.windowOpen
       this.viewActive = ''
     }
+  },
+  mounted: function () {
+    let vm = this
+
+    chrome.bookmarks.onCreated.addListener(function(id, obj) {
+      console.log('Created: ' + id)
+      console.log(obj)
+    })
+    chrome.bookmarks.onRemoved.addListener(function(id, obj) {
+      console.log('Removed: ' + id)
+      console.log(obj)
+    })
+    chrome.bookmarks.onChanged.addListener(function(id, obj) {
+      chrome.bookmarks.get(id, function(res) {
+        let parent = res[0].parentId
+        let id = res[0].id
+
+        // If parent is in the grid
+        if (vm.storeCache.lists[parent]) {
+          vm.storeCache.lists[parent].links[id].title = res[0].title
+          vm.storeCache.lists[parent].links[id].url = res[0].url
+        }
+      })
+    })
+    chrome.bookmarks.onMoved.addListener(function(id, obj) {
+      console.log('Moved: ' + id)
+      console.log(obj)
+    })
+    chrome.bookmarks.onChildrenReordered.addListener(function(id, obj) {
+      console.log('Children reordered: ' + id)
+      console.log(obj)
+    })
   }
 }
 </script>
