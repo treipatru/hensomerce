@@ -58,7 +58,7 @@ body {
   padding: 0.45rem 1.5rem;
   color: #424242;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.03rem;
   font-size: 0.9rem;
   position: relative;
@@ -189,12 +189,12 @@ h1 {
   display: inline-block;
 }
 
-.material-icons.close {
+.close-icon {
   opacity: 0.3;
   transition: all 0.4s cubic-bezier(.25,.8,.25,1);
 }
 
-.material-icons.close:hover{
+.close-icon:hover{
   opacity: 1;
   cursor: pointer;
 }

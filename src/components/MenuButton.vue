@@ -1,9 +1,9 @@
 <template>
   <div id="menu-button">
-    <ui-icon-button icon="menu" 
-                    size="small"
+    <ui-icon-button size="small"
                     type="secondary"
                     @click="windowToggle">
+                    <MenuIcon/>
     </ui-icon-button>
 
     <transition name="fade">
@@ -14,10 +14,13 @@
 </template>
 
 <script>
+  import MenuIcon from '../svg/ic_menu_black_24px.svg'
+
   import { UiIconButton } from 'keen-ui'
 
   export default {
     components: {
+      MenuIcon,
       UiIconButton
     },
     methods: {

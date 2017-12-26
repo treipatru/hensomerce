@@ -4,7 +4,7 @@
         <p>{{this.listData.name}}</p>
         <i class="material-icons close"
            @click="deleteList">
-           &#xE5CD;
+           <CloseIcon class="close-icon"/>
         </i>
       </div>
       <ul>
@@ -20,24 +20,25 @@
 </template>
 
 <script>
-  import CloseIcon from '../svg/menu.svg'
-export default {
-  components: {
-    CloseIcon
-  },
-  data () {
-    return {
-    }
-  },
+  import CloseIcon from '../svg/ic_close_black_24px.svg'
 
-  methods: {
-    deleteList: function () {
-      this.$emit('deleteList', this.listData.id)
-    }
-  },
+  export default {
+    components: {
+      CloseIcon
+    },
+    data () {
+      return {
+      }
+    },
 
-  props: [
-    'listData'
-  ]
-}
+    methods: {
+      deleteList: function () {
+        this.$emit('deleteList', this.listData.id)
+      }
+    },
+
+    props: [
+      'listData'
+    ]
+  }
 </script>
