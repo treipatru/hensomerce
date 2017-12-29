@@ -1,6 +1,6 @@
 <template>
     <div class="list">
-      <div class="list-header">
+      <div class="header">
         <p>{{this.listData.name}}</p>
         <i class="material-icons close"
            @click="deleteList">

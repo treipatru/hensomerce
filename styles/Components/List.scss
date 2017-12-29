@@ -1,0 +1,126 @@
+.cards-container {
+  width: 95%;
+  margin: auto;
+
+  // List wrapper
+  // --------------------
+  .card {
+    width: 32%;
+    background: $li-card-background;
+
+    @media (max-width: 64rem) {
+      width: 48%;
+    }
+
+    // Draggabilly dragging style
+    // --------------------
+    &.is-dragging {
+      z-index: 5;
+
+      > .list {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+      }
+    }
+
+    .list {
+      display: flex;
+      align-content: center;
+      align-items: center;
+      flex-direction: column;
+      justify-content: flex-start;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+      position: relative;
+      border-radius: 0.2rem;
+
+      // Shadow
+      // --------------------
+      &:after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        border-radius: 0.2rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transition: opacity 0.3s ease-in-out;
+      }
+
+      &:hover:after {
+        opacity: 0.3;
+      }
+
+      .header {
+        background: #FF404C;
+        border-radius: 0.2rem 0.2rem 0 0;
+        padding: 0.2rem 0.6rem;
+        color: #DAEBF2;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+          margin: 0;
+          user-select: none;
+          font-size: 1rem;
+          display: inline-block;
+        }
+
+        .close-icon {
+          opacity: 0.3;
+          transition: all 0.4s cubic-bezier(.25, .8, .25, 1);
+
+          &:hover {
+            opacity: 1;
+            cursor: pointer;
+          }
+        }
+      }
+
+      // The actual link list
+      // --------------------
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+
+        li {
+          padding: 0.3rem 0;
+
+          a {
+            text-decoration: none;
+            display: flex;
+            transition: all 0.2s cubic-bezier(.25, .8, .25, 1);
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            color: #2D2F3B;
+            font-size: 0.8rem;
+
+            &:hover {
+              color: #505db7;
+              background: #D1EDF3;
+            }
+
+            span {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: 80%;
+            }
+          }
+        }
+      }
+
+      img {
+        margin: 0.5rem;
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+  }
+}

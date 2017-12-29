@@ -22,18 +22,18 @@
                                            :key="1">
                                </no-content>
 
-                               <div class="boxes-container"
+                               <div class="cards-container"
                                     v-show="hasContent"
-                                    ref="boxesContainer"
+                                    ref="cardsContainer"
                                     :key="2"
                                     v-packery='{
-                                     itemSelector: ".box",
+                                     itemSelector: ".card",
                                      percentPosition: true,
                                      gutter: 15,
                                      initLayout: false,
                                     }'>
                                     <div v-for="(list, index) in storeCache.lists"
-                                         v-packery-item class='box'
+                                         v-packery-item class='card'
                                          :key="list.id">
                                          <list :list-data="list"
                                                v-on:deleteList="deleteList">
