@@ -1,13 +1,14 @@
-const webpack = require('webpack');
-const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack')
+const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-var ROOT = path.join(__dirname, '../');
+var ROOT = path.join(__dirname, '../')
 
 module.exports = {
   entry: {
-    app: './src',
+    app: './src/index.js',
   },
 
   module: {
@@ -25,6 +26,13 @@ module.exports = {
       {
         test: /\.svg$/,
         loader: 'vue-svg-loader'
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader']
+        })
       }
     ]
   },
@@ -47,8 +55,8 @@ module.exports = {
     new CleanWebpackPlugin(
       ['build'],
       {
-        verbose:  true,
-        dry:      false
+        verbose: true,
+        dry: false
       }),
     new CopyWebpackPlugin([
       {
@@ -59,6 +67,9 @@ module.exports = {
         from: 'node_modules/keen-ui/dist/keen-ui.min.css',
         to: './css'
       }
-    ])
+    ]),
+    new ExtractTextPlugin({
+      filename: 'css/styles.css'
+    })
   ]
 };
