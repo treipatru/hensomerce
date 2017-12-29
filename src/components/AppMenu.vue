@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-container">
+  <div :class="['menu-container', windowOpen ? 'active' : '']">
     <div class="grid-right reset-space">
       <div class="col reset-space">
         <div class="menu-wrapper">
