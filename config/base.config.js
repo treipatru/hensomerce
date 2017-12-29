@@ -1,10 +1,8 @@
-const webpack = require('webpack')
-const path = require('path')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-
-var ROOT = path.join(__dirname, '../')
+const webpack = require('webpack');
+const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -38,7 +36,7 @@ module.exports = {
   },
 
   output: {
-    path: path.resolve(__dirname, 'build/ext'),
+    path: path.resolve(__dirname, '../build/ext'),
     filename: 'app.js',
   },
 
@@ -49,12 +47,10 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.EnvironmentPlugin([
-      'NODE_ENV',
-    ]),
     new CleanWebpackPlugin(
       ['build'],
       {
+        root: path.resolve(__dirname , '../'),
         verbose: true,
         dry: false
       }),
@@ -71,5 +67,30 @@ module.exports = {
     new ExtractTextPlugin({
       filename: 'css/styles.css'
     })
-  ]
+  ],
+
+  stats: {
+    assets: true,
+    children: true,
+    chunks: false,
+    chunkModules: false,
+    chunkOrigins: false,
+    colors: true,
+    entrypoints: false,
+    errors: true,
+    errorDetails: true,
+    hash: false,
+    maxModules: 15,
+    modules: false,
+    moduleTrace: false,
+    performance: true,
+    providedExports: false,
+    publicPath: true,
+    reasons: true,
+    source: true,
+    timings: true,
+    usedExports: false,
+    version: true,
+    warnings: true
+  }
 };
