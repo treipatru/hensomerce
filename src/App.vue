@@ -149,7 +149,7 @@ export default {
     },
     windowToggle: function () {
       this.windowOpen = !this.windowOpen
-      this.viewActive = ''
+      this.viewActive = 'add'
     }
   },
   mounted: function () {
