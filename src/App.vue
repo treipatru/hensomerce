@@ -85,6 +85,7 @@ import Settings from './components/Settings.vue'
 export default {
   created: function () {
     this.syncStorageDown()
+    console.log(this.storeCache.lists)
   },
 
   components: {
@@ -98,7 +99,7 @@ export default {
 
   computed: {
     hasContent: function () {
-      if (this.storeCache.lists) {
+      if (Object.keys(this.storeCache.lists).length !== 0) {
         return true
       } else {
         return false
