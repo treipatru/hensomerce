@@ -1,73 +1,79 @@
 <template>
-  <div id="hensomerce" :class="windowOpen ? 'active' : ''">
+  <div
+    id="hensomerce"
+    :class="windowOpen ? 'active' : ''"
+  >
 
-    <app-menu v-on:emitButtonClick="handleMenuClick"
-              v-on:windowToggle="windowToggle"
-              :window-open="windowOpen"
-              :view-active="viewActive">
+    <app-menu
+      v-on:emitButtonClick="handleMenuClick"
+      v-on:windowToggle="windowToggle"
+      :window-open="windowOpen"
+      :view-active="viewActive"
+    >
     </app-menu>
 
     <div v-bind:class="['content', {'active' : viewActive}]">
 
 
 
-      <transition-group name="fade" mode="out-in">
-
         <!-- Render page content -->
-        <div :key="1"
-             v-show="!windowOpen">
-             <transition-group name="fade"
-                               mode="out-in">
-                               <no-content v-show="!hasContent"
-                                           :key="1">
-                               </no-content>
+        <div
+          v-if="!windowOpen"
+        >
+            <onboarding
+              v-if="onboarding"
+            >
+            </onboarding>
 
-                               <div class="cards-container"
-                                    v-show="hasContent"
-                                    ref="cardsContainer"
-                                    :key="2"
-                                    v-packery='{
-                                     itemSelector: ".card",
-                                     percentPosition: true,
-                                     gutter: 15,
-                                     initLayout: false,
-                                    }'>
-                                    <div v-for="(list, index) in storeCache.lists"
-                                         v-packery-item class='card'
-                                         :key="list.id">
-                                         <list :list-data="list"
-                                               v-on:deleteList="deleteList">
-                                         </list>
-                                    </div>
-                               </div>
-              </transition-group>
+            <div
+              v-else
+              class="cards-container"
+              ref="cardsContainer"
+              v-packery='{
+                itemSelector: ".card",
+                percentPosition: true,
+                gutter: 15,
+                initLayout: false
+                }'
+            >
+              <div
+                v-for="(list, index) in storeCache.lists"
+                v-packery-item class='card'
+                :key="list.id"
+              >
+                <list
+                  :list-data="list"
+                  v-on:deleteList="deleteList"
+                >
+                </list>
+              </div>
+            </div>
         </div>
 
         <!-- Render action window -->
-        <div id="action-window"
-             class="grid"
-             :key="2"
-             v-show="windowOpen">
-             <transition name="fade"
-                         mode="out-in">
-                         <add-folder v-if="viewActive === 'add'"
-                                     :key="1"
-                                     :lists="storeCache.lists"
-                                     v-on:saveList="saveList"
-                                     v-on:cancelSelection="windowOpen = !windowOpen">
-                         </add-folder>
+        <div
+          id="action-window"
+          class="grid"
+          v-if="windowOpen"
+        >
+            <add-folder
+              v-if="viewActive === 'add'"
 
-                         <manage v-if="viewActive === 'manage'"
-                                 :key="2">
-                         </manage>
-
-                         <settings v-if="viewActive === 'settings'"
-                                   :key="3">
-                         </settings>
-             </transition>
+              :lists="storeCache.lists"
+              v-on:saveList="saveList"
+              v-on:cancelSelection="windowOpen = !windowOpen"
+            >
+           </add-folder>
+            <manage
+              v-if="viewActive === 'manage'"
+            >
+            </manage>
+            <settings
+              v-if="viewActive === 'settings'"
+              v-on:resetData="resetData"
+            >
+            </settings>
         </div>
-      </transition-group>
-
     </div>
   </div>
 </template>
@@ -77,7 +83,7 @@ import Vue from 'vue'
 import AppMenu from './components/AppMenu.vue'
 import List from './components/List.vue'
 
-import NoContent from './components/NoContent.vue'
+import Onboarding from './components/Onboarding.vue'
 import AddFolder from './components/AddFolder.vue'
 import Manage from './components/Manage.vue'
 import Settings from './components/Settings.vue'
@@ -85,26 +91,18 @@ import Settings from './components/Settings.vue'
 export default {
   created: function () {
     this.syncStorageDown()
-    console.log(this.storeCache.lists)
   },
 
   components: {
     AppMenu,
     List,
-    NoContent,
+    Onboarding,
     AddFolder,
     Manage,
     Settings
   },
 
   computed: {
-    hasContent: function () {
-      if (Object.keys(this.storeCache.lists).length !== 0) {
-        return true
-      } else {
-        return false
-      }
-    }
   },
 
   data () {
@@ -112,6 +110,7 @@ export default {
       storeCache: {
         lists: {}
       },
+      onboarding: false,
       windowOpen: false,
       viewActive: ''
     }
@@ -122,6 +121,10 @@ export default {
       let vm = this
       chrome.storage.local.get(null, function(items) {
         vm.storeCache = items
+
+        if (!vm.storeCache.lists || Object.keys(vm.storeCache.lists).length === 0) {
+          vm.onboarding = true
+        }
       })
     },
     syncStorageUp: function () {
@@ -137,12 +140,23 @@ export default {
 
       Vue.set(this.storeCache.lists, id, obj)
 
-      this.windowOpen = !this.windowOpen
       this.syncStorageUp()
+      this.onboarding = false
+      this.windowOpen = !this.windowOpen
     },
     deleteList: function (id) {
       Vue.delete(this.storeCache.lists, id)
+
+      if (!this.storeCache.lists || Object.keys(this.storeCache.lists).length === 0) {
+        this.onboarding = true
+      }
+
       this.syncStorageUp()
+    },
+    resetData: function () {
+      chrome.storage.local.clear()
+      this.syncStorageDown()
+      this.windowToggle()
     },
     handleMenuClick: function (id) {
       this.viewActive = id
