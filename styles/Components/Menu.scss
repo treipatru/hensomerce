@@ -16,17 +16,24 @@
 
     // Menu toggle
     // --------------------
-    #menu-button {
-      padding: 0 0.2rem;
+    .menu-button-wrapper {
+      position: relative;
+      margin: 0.45rem 0.2rem;
+      display: inline-block;
+      cursor: pointer;
+      opacity: 0.3;
+      transition: all 0.4s cubic-bezier(.25, .8, .25, 1);
+      border-radius: 3px;
 
-      .ui-icon.material-icons.menu {
-        color: #BDBDBD;
+      &:hover {
+        opacity: 1;
       }
 
-      .menu-circle {
-        fill: #424242;
+      .menu-button {
+        padding: 0.2rem 0.2rem;
       }
     }
+
 
     .menu-actions {
       .menu-item {

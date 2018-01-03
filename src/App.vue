@@ -9,6 +9,7 @@
       v-on:windowToggle="windowToggle"
       :window-open="windowOpen"
       :view-active="viewActive"
+      :onboarding="onboarding"
     >
     </app-menu>
 

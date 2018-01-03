@@ -4,7 +4,16 @@
       <div class="col reset-space">
         <div class="menu-wrapper">
 
-          <menu-button v-on:windowToggle="windowToggle"></menu-button>
+          <a
+            ref="menuButton"
+            class="menu-button-wrapper"
+            v-on:click="windowToggle"
+          >
+            <MenuIcon
+              :class="['menu-button', onboarding ? 'onboarding' : '']"
+            />
+            <ui-ripple-ink trigger="menuButton"></ui-ripple-ink>
+          </a>
 
             <div
               class="menu-actions"
@@ -45,13 +54,13 @@
 </template>
 
 <script>
-import MenuButton from './MenuButton.vue'
+import MenuIcon from '../svg/ic_menu_black_24px.svg'
 
 import { UiRippleInk } from 'keen-ui';
 
 export default {
   components: {
-    MenuButton,
+    MenuIcon,
     UiRippleInk
   },
   data () {
@@ -67,7 +76,7 @@ export default {
     }
   },
   props: [
-    'windowOpen', 'viewActive'
+    'windowOpen', 'viewActive', 'onboarding'
   ]
 }
 </script>
