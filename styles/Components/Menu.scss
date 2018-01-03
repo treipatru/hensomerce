@@ -5,7 +5,6 @@
   border-bottom: 1px solid transparent;
 
   &.active {
-    border-color: rgba(33, 150, 243, 0.3);
   }
 
   .menu-wrapper {
@@ -49,8 +48,7 @@
         }
 
         &.active{
-          background: #2196f3;
-          color: $li-main-background-active;
+          color: #2196f3;
         }
       }
     }
