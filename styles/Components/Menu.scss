@@ -44,7 +44,7 @@
       position: absolute;
       left: -0.8rem;
       top: -0.4rem;
-      border: 1px solid #2196f3;
+      border: 1px solid $li-accent-1;
       border-radius: 50%;
       user-select: none;
 
@@ -74,7 +74,7 @@
       .menu-item {
         text-decoration: none;
         padding: 0.45rem 1.5rem;
-        color: #424242;
+        color: $li-base;
         text-transform: uppercase;
         font-weight: 700;
         letter-spacing: 0.03rem;
@@ -86,11 +86,11 @@
         border-radius: 0.1rem 0.1rem 0 0;
 
         :hover {
-          color: #2196f3;
+          color: $li-accent-1;
         }
 
         &.active {
-          color: #2196f3;
+          color: $li-accent-1;
         }
       }
     }

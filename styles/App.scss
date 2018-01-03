@@ -1,12 +1,13 @@
 // VARS
 // ------------------------------------
 // Light Theme
+$li-base: #424242;
+$li-accent-1: #2196f3;
+$li-accent-2: #FF404C;
+$li-light-1: #D1EDF3;
+$li-light-2: #505DB7;
 $li-main-background: #F8F9FB;
 $li-main-background-active: #FFF;
-$li-card-background: #FFF;
-
-
-
 
 
 // IMPORTS
@@ -16,9 +17,6 @@ $li-card-background: #FFF;
 @import 'Components/Menu';
 @import 'Components/List';
 @import 'Components/Onboarding';
-
-
-
 
 
 // BASE
@@ -42,9 +40,6 @@ body {
 }
 
 
-
-
-
 // APP CONTAINER
 // ------------------------------------
 #hensomerce {
@@ -57,9 +52,6 @@ body {
     background: $li-main-background-active;
   }
 }
-
-
-
 
 
 // CONTENT
