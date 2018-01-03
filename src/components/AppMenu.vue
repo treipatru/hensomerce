@@ -9,9 +9,7 @@
             class="menu-button-wrapper"
             v-on:click="windowToggle"
           >
-            <MenuIcon
-              :class="['menu-button', onboarding ? 'onboarding' : '']"
-            />
+            <MenuIcon class="menu-button"/>
             <ui-ripple-ink trigger="menuButton"></ui-ripple-ink>
           </a>
 
@@ -47,6 +45,11 @@
                 <ui-ripple-ink trigger="settings"></ui-ripple-ink>
               </a>
             </div>
+          <div
+            v-if="onboarding"
+            class="sonar"
+          >
+          </div>
         </div>
       </div>
     </div>
