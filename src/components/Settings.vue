@@ -1,12 +1,17 @@
 <template>
   <div class="view">
     <div class="grid-12-column">
-      <div class="col-4 center-content" data-push-left="off-4">
-        <ui-button type="primary"
-                   size="small"
-                   color="red"
-                   @click="clearStorage">
-                   Reset Data
+      <div
+        class="col-4 center-content"
+        data-push-left="off-4"
+      >
+        <ui-button
+          type="primary"
+          size="small"
+          color="red"
+          @click="resetData"
+        >
+          Reset Data
         </ui-button>
       </div>
     </div>
@@ -21,9 +26,8 @@ import { UiButton } from 'keen-ui'
       UiButton
     },
     methods: {
-      clearStorage: function () {
-        chrome.storage.local.clear()
-        location.reload()
+      resetData: function () {
+        this.$emit('resetData')
       }
     }
   }
