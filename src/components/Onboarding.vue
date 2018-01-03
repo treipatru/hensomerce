@@ -4,7 +4,6 @@
       <div class="fire-container">
         <span class="emoji">
           &#x1F525;
-
         </span>
         <span class="ripple"></span>
       </div>
