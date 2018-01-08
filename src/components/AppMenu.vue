@@ -28,15 +28,6 @@
               </a>
               <a
                 href="#"
-                ref="manage"
-                v-bind:class="['menu-item', viewActive === 'manage' ? 'active' : '']"
-                v-on:click.prevent="emitButtonClick('manage')"
-              >
-                Manage
-                <ui-ripple-ink trigger="manage"></ui-ripple-ink>
-              </a>
-              <a
-                href="#"
                 ref="settings"
                 v-bind:class="['menu-item', viewActive === 'settings' ? 'active' : '']"
                 v-on:click.prevent="emitButtonClick('settings')"

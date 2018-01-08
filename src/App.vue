@@ -65,10 +65,6 @@
               v-on:cancelSelection="windowOpen = !windowOpen"
             >
            </add-folder>
-            <manage
-              v-if="viewActive === 'manage'"
-            >
-            </manage>
             <settings
               v-if="viewActive === 'settings'"
               v-on:resetData="resetData"
@@ -86,7 +82,6 @@ import List from './components/List.vue'
 
 import Onboarding from './components/Onboarding.vue'
 import AddFolder from './components/AddFolder.vue'
-import Manage from './components/Manage.vue'
 import Settings from './components/Settings.vue'
 
 export default {
@@ -99,7 +94,6 @@ export default {
     List,
     Onboarding,
     AddFolder,
-    Manage,
     Settings
   },
 
