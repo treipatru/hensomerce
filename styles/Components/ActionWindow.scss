@@ -1,0 +1,48 @@
+.view {
+  .header {
+    font-size: 1rem;
+    margin: 0;
+    padding: 1rem 0;
+  }
+
+  &.add-folder {
+    .searchBox{
+      width: 55ch;
+      padding-bottom: 1rem;
+
+      .ui-select {
+        font-size: 0.9rem!important;
+      }
+    }
+
+    .subfolders {
+      padding-bottom: 1rem;
+    }
+
+    .buttons {
+      width: 55ch;
+      margin-top: 1.5rem;
+      display: flex;
+      align-content: center;
+      align-items: center;
+      justify-content: center;
+
+      button {
+        margin: 0 0.5rem;
+      }
+    }
+  }
+
+  &.settings {
+    .reset-wrap {
+      padding: 1rem 0;
+
+      button {
+        margin-right: 0.3rem;
+      }
+      .resetb{
+        min-width: 15ch;
+      }
+    }
+  }
+}

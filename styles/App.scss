@@ -14,6 +14,7 @@ $li-main-background-active: #FFF;
 // ------------------------------------
 @import 'Helpers';
 @import 'Transitions';
+@import 'Components/ActionWindow';
 @import 'Components/Menu';
 @import 'Components/List';
 @import 'Components/Onboarding';
@@ -34,7 +35,7 @@ html {
 body {
   background: $li-main-background;
   font-family: 'Roboto', sans-serif;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
 }
@@ -43,10 +44,11 @@ body {
 // APP CONTAINER
 // ------------------------------------
 #hensomerce {
-  height: 97vh;
+  min-height: 100vh;
   width: 100%;
   transition: background 0.4s ease-in-out;
   overflow-x: hidden;
+  padding-bottom: 1rem;
 
   &.active {
     background: $li-main-background-active;
@@ -59,18 +61,14 @@ body {
 .content {
   transition: all 0.2s cubic-bezier(.25,.8,.25,1);
   height: 90vh;
+  min-height: 90vh;
 
   #action-window {
-    width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
+    width: 100%;
+    padding: 15vh 3vh 0 9vh;
 
     .view {
-      width: 100%;
 
       .search-input {
         width: 100%;
