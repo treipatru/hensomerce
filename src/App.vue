@@ -54,7 +54,6 @@
         <!-- Render action window -->
         <div
           id="action-window"
-          class="grid"
           v-if="windowOpen"
         >
             <add-folder

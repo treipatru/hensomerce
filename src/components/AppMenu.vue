@@ -1,47 +1,42 @@
 <template>
   <div :class="['menu-container', windowOpen ? 'active' : '']">
-    <div class="grid-right reset-space">
-      <div class="col reset-space">
-        <div class="menu-wrapper">
+    <div class="menu-wrapper">
+      <a
+        ref="menuButton"
+        class="menu-button-wrapper"
+        v-on:click="windowToggle"
+      >
+        <MenuIcon class="menu-button"/>
+        <ui-ripple-ink trigger="menuButton"></ui-ripple-ink>
+      </a>
 
+        <div
+          class="menu-actions"
+          v-if="windowOpen"
+        >
           <a
-            ref="menuButton"
-            class="menu-button-wrapper"
-            v-on:click="windowToggle"
+            href="#"
+            ref="add"
+            v-bind:class="['menu-item', viewActive === 'add' ? 'active' : '']"
+            v-on:click.prevent="emitButtonClick('add')"
           >
-            <MenuIcon class="menu-button"/>
-            <ui-ripple-ink trigger="menuButton"></ui-ripple-ink>
+            Add
+            <ui-ripple-ink trigger="add"></ui-ripple-ink>
           </a>
-
-            <div
-              class="menu-actions"
-              v-if="windowOpen"
-            >
-              <a
-                href="#"
-                ref="add"
-                v-bind:class="['menu-item', viewActive === 'add' ? 'active' : '']"
-                v-on:click.prevent="emitButtonClick('add')"
-              >
-                Add
-                <ui-ripple-ink trigger="add"></ui-ripple-ink>
-              </a>
-              <a
-                href="#"
-                ref="settings"
-                v-bind:class="['menu-item', viewActive === 'settings' ? 'active' : '']"
-                v-on:click.prevent="emitButtonClick('settings')"
-              >
-                Settings
-                <ui-ripple-ink trigger="settings"></ui-ripple-ink>
-              </a>
-            </div>
-          <div
-            v-if="onboarding"
-            class="sonar"
+          <a
+            href="#"
+            ref="settings"
+            v-bind:class="['menu-item', viewActive === 'settings' ? 'active' : '']"
+            v-on:click.prevent="emitButtonClick('settings')"
           >
-          </div>
+            Settings
+            <ui-ripple-ink trigger="settings"></ui-ripple-ink>
+          </a>
         </div>
+      <div
+        v-if="onboarding"
+        class="sonar"
+      >
       </div>
     </div>
   </div>
