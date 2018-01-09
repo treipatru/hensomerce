@@ -1,62 +1,46 @@
 <template>
-  <div class="view">
-    <div class="grid-12-column">
-      <div
-        class="col-4"
-        data-push-left="off-4"
+  <div class="view add-folder">
+    <p class="header">Add a folder your homepage</p>
+    <div class="searchBox">
+      <ui-select
+        has-search
+        :options="folders"
+        :keys="{ label: 'title', value: 'id' }"
+        v-model="userInput"
+        @select="selectFolder"
+        ref="searchInput"
+        class="search-input"
       >
-        <ui-select
-          has-search
-          :options="folders"
-          :keys="{ label: 'title', value: 'id' }"
-          v-model="userInput"
-          @select="selectFolder"
-          ref="searchInput"
-          class="search-input"
-        >
-        </ui-select>
-      </div>
+      </ui-select>
+    </div>
 
-      <div
-        class="col-4"
-        data-push-left="off-4"
+    <div class="subfolders">
+      <ui-checkbox
+        v-model="includeSubfolders"
+        :disabled="!selHasSubfolders"
       >
-        <ui-checkbox
-          v-model="includeSubfolders"
-          :disabled="!selHasSubfolders"
-        >
-          Include subfolders?
-        </ui-checkbox>
-        <ui-checkbox
-          v-model="makeChildrenBoxes"
-          :disabled="!includeSubfolders"
-        >
-          In individual boxes?
-        </ui-checkbox>
-      </div>
+        Include subfolders?
+      </ui-checkbox>
+    </div>
 
-      <div
-        class="col-4 center-content"
-        data-push-left="off-4"
+    <div class="buttons">
+      <ui-button
+        color="primary"
+        type="secondary"
+        @click="cancelSelection"
+        class=""
       >
-        <ui-button
-          color="primary"
-          type="secondary"
-          @click="cancelSelection"
-          class=""
-        >
-          Cancel
-        </ui-button>
-        <ui-button
-          color="primary"
-          type="primary"
-          @click="saveSelection"
-          class=""
-          :disabled="userInput ? false : true"
-        >
-          Save
-        </ui-button>
-      </div>
+        Cancel
+      </ui-button>
+      <ui-button
+        color="primary"
+        type="primary"
+        @click="saveSelection"
+        class=""
+        :disabled="userInput ? false : true"
+      >
+        Save
+      </ui-button>
     </div>
   </div>
 </template>
@@ -83,8 +67,7 @@
         links: {},
         linksRec: {},
         includeSubfolders: false,
-        selHasSubfolders: false,
-        makeChildrenBoxes: false
+        selHasSubfolders: false
       }
     },
 
