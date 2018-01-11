@@ -39,7 +39,9 @@
             >
               <div
                 v-for="(list, index) in storeCache.lists"
-                v-packery-item class='card'
+                v-packery-item
+                class="card"
+                :ref="list.id"
                 :key="list.id"
               >
                 <list
@@ -139,6 +141,8 @@ export default {
       this.windowOpen = !this.windowOpen
     },
     deleteList: function (id) {
+      this.$refs.cardsContainer.packery.remove(this.$refs[id])
+      this.$refs.cardsContainer.packery.layout()
       Vue.delete(this.storeCache.lists, id)
 
       if (!this.storeCache.lists || Object.keys(this.storeCache.lists).length === 0) {
