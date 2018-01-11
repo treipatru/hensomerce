@@ -129,12 +129,16 @@ export default {
       chrome.storage.local.set(vm.storeCache, function() {
       })
     },
-    saveList: function (obj, id) {
-      if (!this.storeCache.lists) {
-        this.storeCache.lists = {}
+    saveList: function (obj) {
+      let vm = this
+
+      if (!vm.storeCache.lists) {
+        vm.storeCache.lists = {}
       }
 
-      Vue.set(this.storeCache.lists, id, obj)
+      Object.keys(obj).forEach(function(key) {
+        Vue.set(vm.storeCache.lists, obj[key].id, obj[key])
+      })
 
       this.syncStorageUp()
       this.onboarding = false
