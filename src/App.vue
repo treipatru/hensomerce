@@ -4,14 +4,14 @@
     :class="windowOpen ? 'active' : ''"
   >
 
-    <app-menu
+    <menu-button
       v-on:emitButtonClick="handleMenuClick"
       v-on:windowToggle="windowToggle"
       :window-open="windowOpen"
       :view-active="viewActive"
       :onboarding="onboarding"
     >
-    </app-menu>
+    </menu-button>
 
     <div v-bind:class="['content', {'active' : viewActive}]">
 
@@ -58,19 +58,25 @@
           id="action-window"
           v-if="windowOpen"
         >
-            <add-folder
-              v-if="viewActive === 'add'"
+          <app-menu
+            v-on:emitButtonClick="handleMenuClick"
+            :window-open="windowOpen"
+            :view-active="viewActive"
+          >
+          </app-menu>
+          <add-folder
+            v-if="viewActive === 'add'"
 
-              :lists="storeCache.lists"
-              v-on:saveList="saveList"
-              v-on:cancelSelection="windowOpen = !windowOpen"
-            >
-           </add-folder>
-            <settings
-              v-if="viewActive === 'settings'"
-              v-on:resetData="resetData"
-            >
-            </settings>
+            :lists="storeCache.lists"
+            v-on:saveList="saveList"
+            v-on:cancelSelection="windowOpen = !windowOpen"
+          >
+         </add-folder>
+          <settings
+            v-if="viewActive === 'settings'"
+            v-on:resetData="resetData"
+          >
+          </settings>
         </div>
     </div>
   </div>
@@ -78,6 +84,7 @@
 
 <script>
 import Vue from 'vue'
+import MenuButton from './components/MenuButton.vue'
 import AppMenu from './components/AppMenu.vue'
 import List from './components/List.vue'
 
@@ -91,6 +98,7 @@ export default {
   },
 
   components: {
+    MenuButton,
     AppMenu,
     List,
     Onboarding,

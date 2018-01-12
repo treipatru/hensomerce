@@ -1,71 +1,51 @@
 <template>
-  <div :class="['menu-container', windowOpen ? 'active' : '']">
-    <div class="menu-wrapper">
-      <a
-        ref="menuButton"
-        class="menu-button-wrapper"
-        v-on:click="windowToggle"
-      >
-        <MenuIcon class="menu-button"/>
-        <ui-ripple-ink trigger="menuButton"></ui-ripple-ink>
-      </a>
-
-        <div
-          class="menu-actions"
-          v-if="windowOpen"
-        >
-          <a
-            href="#"
-            ref="add"
-            v-bind:class="['menu-item', viewActive === 'add' ? 'active' : '']"
-            v-on:click.prevent="emitButtonClick('add')"
-          >
-            Add
-            <ui-ripple-ink trigger="add"></ui-ripple-ink>
-          </a>
-          <a
-            href="#"
-            ref="settings"
-            v-bind:class="['menu-item', viewActive === 'settings' ? 'active' : '']"
-            v-on:click.prevent="emitButtonClick('settings')"
-          >
-            Settings
-            <ui-ripple-ink trigger="settings"></ui-ripple-ink>
-          </a>
-        </div>
-      <div
-        v-if="onboarding"
-        class="sonar"
-      >
-      </div>
-    </div>
+  <div
+    class="menu-actions"
+    v-if="windowOpen"
+  >
+    <a
+      href="#"
+      ref="add"
+      v-bind:class="['menu-item', viewActive === 'add' ? 'active' : '']"
+      v-on:click.prevent="emitButtonClick('add')"
+    >
+      <AddIcon/>
+      <ui-ripple-ink trigger="add"></ui-ripple-ink>
+    </a>
+    <a
+      href="#"
+      ref="settings"
+      v-bind:class="['menu-item', viewActive === 'settings' ? 'active' : '']"
+      v-on:click.prevent="emitButtonClick('settings')"
+    >
+      <SettingsIcon/>
+      <ui-ripple-ink trigger="settings"></ui-ripple-ink>
+    </a>
   </div>
 </template>
 
 <script>
-import MenuIcon from '../svg/ic_menu_black_24px.svg'
+  import AddIcon from '../svg/ic_add_box_black_24px.svg'
+  import SettingsIcon from '../svg/ic_settings_applications_black_24px.svg'
+  import { UiRippleInk } from 'keen-ui';
 
-import { UiRippleInk } from 'keen-ui';
-
-export default {
-  components: {
-    MenuIcon,
-    UiRippleInk
-  },
-  data () {
-    return {
-    }
-  },
-  methods: {
-    emitButtonClick: function (id) {
-      this.$emit('emitButtonClick', id)
+  export default {
+    components: {
+      UiRippleInk,
+      AddIcon,
+      SettingsIcon
     },
-    windowToggle: function () {
-      this.$emit('windowToggle')
-    }
-  },
-  props: [
-    'windowOpen', 'viewActive', 'onboarding'
-  ]
-}
+    data () {
+      return {
+      }
+    },
+    methods: {
+      emitButtonClick: function (id) {
+        this.$emit('emitButtonClick', id)
+      }
+    },
+    props: [
+      'windowOpen', 'viewActive'
+    ]
+  }
 </script>
