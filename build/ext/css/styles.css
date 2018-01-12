@@ -17,73 +17,77 @@
 .fade-enter, .fade-leave-to {
   opacity: 0; }
 
-.view .header {
-  font-size: 1rem;
-  margin: 0;
-  padding: 1rem 0; }
-
-.view.add-folder .searchBox {
-  width: 55ch;
-  padding-bottom: 1rem; }
-  .view.add-folder .searchBox .ui-select {
-    font-size: 0.9rem !important; }
-
-.view.add-folder .subfolders {
-  padding-bottom: 1rem; }
-
-.view.add-folder .buttons {
-  width: 55ch;
-  margin-top: 1.5rem;
-  display: flex;
-  align-content: center;
-  align-items: center;
-  justify-content: center; }
-  .view.add-folder .buttons button {
-    margin: 0 0.5rem; }
-
-.view.settings .reset-wrap {
-  padding: 1rem 0; }
-  .view.settings .reset-wrap button {
-    margin-right: 0.3rem; }
-  .view.settings .reset-wrap .resetb {
-    min-width: 15ch; }
-
-.menu-container {
-  margin-bottom: 0.3rem;
-  border-bottom: 1px solid transparent;
-  height: 6vh; }
-  .menu-container .menu-wrapper {
+.view {
+  margin-left: 2rem; }
+  .view .header {
+    font-size: 2em;
+    font-weight: 300;
+    margin: 0;
+    padding-bottom: 2rem; }
+  .view .subheader {
+    font-size: 1.4em;
+    font-weight: 400;
+    margin: 0;
+    padding-bottom: 0.5rem; }
+  .view.add-folder .searchBox {
+    width: 55ch;
+    padding-bottom: 1rem; }
+    .view.add-folder .searchBox .ui-select {
+      font-size: 0.9rem !important; }
+  .view.add-folder .subfolders {
+    padding-bottom: 1rem; }
+  .view.add-folder .buttons {
+    width: 55ch;
+    margin-top: 1.5rem;
     display: flex;
-    align-items: center;
     align-content: center;
-    justify-content: flex-start;
-    margin-top: 0.1rem; }
-    .menu-container .menu-wrapper .menu-button-wrapper {
-      position: relative;
-      margin: 0.45rem 0.2rem;
-      display: inline-block;
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      border-radius: 3px; }
-      .menu-container .menu-wrapper .menu-button-wrapper:hover .menu-button {
-        opacity: 1; }
-      .menu-container .menu-wrapper .menu-button-wrapper .menu-button {
-        opacity: 0.3;
-        padding: 0.2rem 0.2rem; }
-    .menu-container .menu-wrapper .sonar {
-      z-index: -1;
-      display: block;
-      height: 3.5rem;
-      width: 3.5rem;
-      position: absolute;
-      left: -0.8rem;
-      top: -0.4rem;
-      border: 1px solid #2196f3;
-      border-radius: 50%;
-      user-select: none;
-      animation: sonar 1.7s ease-out;
-      animation-iteration-count: infinite;
-      opacity: 0.0; }
+    align-items: center;
+    justify-content: center; }
+    .view.add-folder .buttons button {
+      margin: 0 0.5rem; }
+  .view.settings .reset-wrap {
+    padding: 1rem 0; }
+    .view.settings .reset-wrap button {
+      margin-right: 0.3rem; }
+    .view.settings .reset-wrap .resetb {
+      min-width: 15ch; }
+
+.menu-button .menu-link {
+  position: relative;
+  display: inline-block;
+  margin: 0.2rem;
+  border-radius: 5%;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+  .menu-button .menu-link.active {
+    padding: 0.5rem;
+    opacity: 1; }
+  .menu-button .menu-link:hover {
+    opacity: 0.8; }
+  .menu-button .menu-link svg.menu-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: #424242;
+    transition: all 0.5s ease-in; }
+    .menu-button .menu-link svg.menu-icon.active {
+      width: 2rem;
+      height: 2rem; }
+
+.menu-button .sonar {
+  z-index: -1;
+  display: block;
+  height: 8rem;
+  width: 8rem;
+  position: fixed;
+  left: -4rem;
+  top: -4rem;
+  border: 1px solid #2196f3;
+  border-radius: 50%;
+  user-select: none;
+  animation: sonar 1.7s ease-out;
+  animation-iteration-count: infinite;
+  opacity: 0.0; }
 
 @keyframes sonar {
   0% {
@@ -96,23 +100,32 @@
   100% {
     transform: scale(1.2, 1.2);
     opacity: 0.0; } }
-    .menu-container .menu-wrapper .menu-actions .menu-item {
-      text-decoration: none;
-      padding: 0.45rem 1.5rem;
-      color: #424242;
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: 0.03rem;
-      font-size: 0.9rem;
-      position: relative;
-      text-align: center;
-      display: inline-block;
-      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-      border-radius: 0.1rem 0.1rem 0 0; }
-      .menu-container .menu-wrapper .menu-actions .menu-item :hover {
-        color: #2196f3; }
-      .menu-container .menu-wrapper .menu-actions .menu-item.active {
-        color: #2196f3; }
+
+.menu-actions {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem; }
+  .menu-actions .menu-item {
+    text-decoration: none;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.03rem;
+    font-size: 0.9rem;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 3px; }
+    .menu-actions .menu-item svg {
+      width: 2rem;
+      height: 2rem;
+      fill: #424242;
+      transition: fill .3s ease-in-out; }
+    .menu-actions .menu-item:hover svg {
+      fill: #686868; }
+    .menu-actions .menu-item.active svg {
+      fill: #2196f3; }
 
 .cards-container {
   width: 95%;
@@ -244,12 +257,9 @@ body {
     background: #FFF; }
 
 .content {
-  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-  height: 90vh;
-  min-height: 90vh; }
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); }
   .content #action-window {
-    height: 100%;
-    width: 100%;
-    padding: 15vh 3vh 0 9vh; }
+    display: flex;
+    flex-direction: row; }
     .content #action-window .view .search-input {
       width: 100%; }
