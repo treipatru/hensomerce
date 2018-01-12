@@ -6,7 +6,6 @@
       v-on:click="windowToggle"
     >
       <MenuIcon :class="['menu-icon', windowOpen ? 'active' : '']"/>
-      <ui-ripple-ink trigger="menuButton"></ui-ripple-ink>
     </a>
 
     <div
@@ -20,12 +19,9 @@
 <script>
 import MenuIcon from '../svg/ic_more_horiz_black_24px.svg'
 
-import { UiRippleInk } from 'keen-ui';
-
 export default {
   components: {
-    MenuIcon,
-    UiRippleInk
+    MenuIcon
   },
   data () {
     return {
