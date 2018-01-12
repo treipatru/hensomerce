@@ -15,7 +15,8 @@ $li-main-background-active: #FFF;
 @import 'Helpers';
 @import 'Transitions';
 @import 'Components/ActionWindow';
-@import 'Components/Menu';
+@import 'Components/MenuButton';
+@import 'Components/AppMenu';
 @import 'Components/List';
 @import 'Components/Onboarding';
 
@@ -60,13 +61,12 @@ body {
 // ------------------------------------
 .content {
   transition: all 0.2s cubic-bezier(.25,.8,.25,1);
-  height: 90vh;
-  min-height: 90vh;
 
   #action-window {
-    height: 100%;
-    width: 100%;
-    padding: 15vh 3vh 0 9vh;
+    display: flex;
+    flex-direction: row;
+
+
 
     .view {
 

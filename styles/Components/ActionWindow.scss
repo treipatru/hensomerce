@@ -1,17 +1,26 @@
 .view {
+  margin-left: 2rem;
   .header {
-    font-size: 1rem;
+    font-size: 2em;
+    font-weight: 300;
     margin: 0;
-    padding: 1rem 0;
+    padding-bottom: 2rem;
+  }
+
+  .subheader {
+    font-size: 1.4em;
+    font-weight: 400;
+    margin: 0;
+    padding-bottom: 0.5rem;
   }
 
   &.add-folder {
-    .searchBox{
+    .searchBox {
       width: 55ch;
       padding-bottom: 1rem;
 
       .ui-select {
-        font-size: 0.9rem!important;
+        font-size: 0.9rem !important;
       }
     }
 
@@ -40,7 +49,7 @@
       button {
         margin-right: 0.3rem;
       }
-      .resetb{
+      .resetb {
         min-width: 15ch;
       }
     }
