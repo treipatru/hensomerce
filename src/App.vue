@@ -42,7 +42,7 @@
                 v-packery-item
                 class="card"
                 :ref="list.id"
-                :key="list.id"
+                :key="index"
               >
                 <list
                   :list-data="list"
@@ -131,12 +131,14 @@ export default {
         }
       })
     },
+
     syncStorageUp: function () {
       let vm = this
       chrome.storage.local.clear()
       chrome.storage.local.set(vm.storeCache, function() {
       })
     },
+
     saveList: function (obj) {
       let vm = this
 
@@ -152,6 +154,7 @@ export default {
       this.onboarding = false
       this.windowOpen = !this.windowOpen
     },
+
     deleteList: function (id) {
       this.$refs.cardsContainer.packery.remove(this.$refs[id])
       this.$refs.cardsContainer.packery.layout()
@@ -163,14 +166,22 @@ export default {
 
       this.syncStorageUp()
     },
+
+    deleteLink: function (id, parentId) {
+      Vue.delete(this.storeCache.lists[parentId].links, id)
+      this.syncStorageUp()
+    },
+
     resetData: function () {
       chrome.storage.local.clear()
       this.syncStorageDown()
       this.windowToggle()
     },
+
     handleMenuClick: function (id) {
       this.viewActive = id
     },
+
     windowToggle: function () {
       this.windowOpen = !this.windowOpen
       this.viewActive = 'add'
@@ -185,27 +196,28 @@ export default {
     })
 
     chrome.bookmarks.onRemoved.addListener(function(id, obj) {
-      console.log('Removed: ' + id)
-      console.log(obj)
+      if (vm.storeCache.lists[obj.parentId]) {
+        vm.deleteLink(id, obj.parentId)
+      } else if (vm.storeCache.lists[id]) {
+        vm.deleteList(id)
+      }
     })
 
     chrome.bookmarks.onChanged.addListener(function(id, obj) {
       chrome.bookmarks.get(id, function(res) {
-        let parent = res[0].parentId
-        let id = res[0].id
+        let p = res[0].parentId
 
         // If parent is in the grid
-        if (vm.storeCache.lists[parent]) {
-          vm.storeCache.lists[parent].links[id].title = res[0].title
-          vm.storeCache.lists[parent].links[id].url = res[0].url
-          vm.syncStorageUp()
+        if (vm.storeCache.lists[p]) {
+          vm.storeCache.lists[p].links[id].title = obj.title
+          vm.storeCache.lists[p].links[id].url = obj.url
         }
-
         // If obj is a folder in the grid
         if (vm.storeCache.lists[id]) {
-          vm.storeCache.lists[id].name = res[0].title
-          vm.syncStorageUp()
+          vm.storeCache.lists[id].name = obj.title
         }
+
+        vm.syncStorageUp()
       })
     })
 
