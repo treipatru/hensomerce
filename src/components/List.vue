@@ -2,9 +2,11 @@
     <div class="list">
       <div class="header">
         <p>{{this.listData.name}}</p>
-        <i class="material-icons close"
-           @click="deleteList">
-           <CloseIcon class="close-icon"/>
+        <i
+          class="material-icons close"
+          @click="deleteList"
+        >
+          <CloseIcon class="close-icon"/>
         </i>
       </div>
       <ul>
@@ -12,8 +14,10 @@
           v-for="(link, index) in listData.links"
           :key="index"
         >
-          <a :href="link.url"
-             :title="link.url">
+          <a
+            :href="link.url"
+            :title="link.url"
+          >
             <img :src="'chrome://favicon/' + link.url">
            <span>{{link.title}}</span>
            </a>
