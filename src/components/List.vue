@@ -8,7 +8,10 @@
         </i>
       </div>
       <ul>
-        <li v-for="link in listData.links">
+        <li
+          v-for="(link, index) in listData.links"
+          :key="index"
+        >
           <a :href="link.url"
              :title="link.url">
             <img :src="'chrome://favicon/' + link.url">
