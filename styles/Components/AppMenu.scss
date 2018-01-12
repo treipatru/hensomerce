@@ -3,7 +3,9 @@
 .menu-actions {
   display: flex;
   flex-direction: column;
-  margin-top: 2rem;
+  padding-top: 3.5rem;
+  z-index: 10;
+  background: $li-main-background-active;
 
   .menu-item {
     text-decoration: none;

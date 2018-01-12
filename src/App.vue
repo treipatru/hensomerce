@@ -13,71 +13,81 @@
     >
     </menu-button>
 
-    <div v-bind:class="['content', {'active' : viewActive}]">
+    <div v-bind:class="['content']">
 
-
-
-        <!-- Render page content -->
-        <div
-          v-if="!windowOpen"
-        >
-            <onboarding
-              v-if="onboarding"
-            >
-            </onboarding>
-
-            <div
-              v-else
-              class="cards-container"
-              ref="cardsContainer"
-              v-packery='{
-                itemSelector: ".card",
-                percentPosition: true,
-                gutter: 15,
-                initLayout: false
-                }'
-            >
-              <div
-                v-for="(list, index) in storeCache.lists"
-                v-packery-item
-                class="card"
-                :ref="list.id"
-                :key="index"
+        <transition-group name="fade" mode="out-in">
+          <!-- Render page content -->
+          <div
+            v-if="!windowOpen"
+            :key="0"
+            id="content-window"
+          >
+            <transition-group name="fade" mode="out-in">
+              <onboarding
+                v-if="onboarding"
+                :key="2"
               >
-                <list
-                  :list-data="list"
-                  v-on:deleteList="deleteList"
+              </onboarding>
+
+              <div
+                v-else
+                :key="3"
+                class="cards-container"
+                ref="cardsContainer"
+                v-packery='{
+                  itemSelector: ".card",
+                  percentPosition: true,
+                  gutter: 15,
+                  initLayout: false
+                  }'
+              >
+                <div
+                  v-for="(list, index) in storeCache.lists"
+                  v-packery-item
+                  class="card"
+                  :ref="list.id"
+                  :key="index"
                 >
-                </list>
+                  <list
+                    :list-data="list"
+                    v-on:deleteList="deleteList"
+                  >
+                  </list>
+                </div>
               </div>
-            </div>
-        </div>
+            </transition-group>
+          </div>
 
-        <!-- Render action window -->
-        <div
-          id="action-window"
-          v-if="windowOpen"
-        >
-          <app-menu
-            v-on:emitButtonClick="handleMenuClick"
-            :window-open="windowOpen"
-            :view-active="viewActive"
+          <!-- Render action window -->
+          <div
+            v-else
+            id="action-window"
+            :key="1"
           >
-          </app-menu>
-          <add-folder
-            v-if="viewActive === 'add'"
-
-            :lists="storeCache.lists"
-            v-on:saveList="saveList"
-            v-on:cancelSelection="windowOpen = !windowOpen"
-          >
-         </add-folder>
-          <settings
-            v-if="viewActive === 'settings'"
-            v-on:resetData="resetData"
-          >
-          </settings>
-        </div>
+            <app-menu
+              v-on:emitButtonClick="handleMenuClick"
+              :window-open="windowOpen"
+              :view-active="viewActive"
+            >
+            </app-menu>
+            <transition-group name="slide" mode="out-in">
+              <add-folder
+                v-if="viewActive === 'add'"
+                :key="4"
+                :lists="storeCache.lists"
+                v-on:saveList="saveList"
+                v-on:cancelSelection="windowOpen = !windowOpen"
+              >
+              </add-folder>
+              <settings
+                v-if="viewActive === 'settings'"
+                :key="5"
+                v-on:resetData="resetData"
+              >
+              </settings>
+            </transition-group>
+          </div>
+        </transition-group>
     </div>
   </div>
 </template>

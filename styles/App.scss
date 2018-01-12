@@ -9,7 +9,6 @@ $li-light-2: #505DB7;
 $li-main-background: #F8F9FB;
 $li-main-background-active: #FFF;
 
-
 // IMPORTS
 // ------------------------------------
 @import 'Helpers';
@@ -19,7 +18,6 @@ $li-main-background-active: #FFF;
 @import 'Components/AppMenu';
 @import 'Components/List';
 @import 'Components/Onboarding';
-
 
 // BASE
 // ------------------------------------
@@ -41,7 +39,6 @@ body {
   padding: 0;
 }
 
-
 // APP CONTAINER
 // ------------------------------------
 #hensomerce {
@@ -56,23 +53,28 @@ body {
   }
 }
 
-
 // CONTENT
 // ------------------------------------
 .content {
-  transition: all 0.2s cubic-bezier(.25,.8,.25,1);
-
+  position: relative;
   #action-window {
+    min-height: 90vh;
     display: flex;
     flex-direction: row;
-
-
+    position: relative;
 
     .view {
-
       .search-input {
         width: 100%;
       }
     }
+  }
+
+  #content-window {
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
