@@ -1,6 +1,7 @@
 <template>
   <div class="view settings">
-    <p class="header">Delete extension data</p>
+    <p class="header">Settings</p>
+    <p class="subheader">Delete extension data</p>
     <div class="reset-wrap">
       <ui-button
         type="primary"

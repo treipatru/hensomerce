@@ -1,6 +1,6 @@
 <template>
   <div class="view add-folder">
-    <p class="header">Add a folder your homepage</p>
+    <p class="header">Add folder to homepage</p>
     <div class="searchBox">
       <ui-select
         has-search
@@ -10,6 +10,8 @@
         @select="selectFolder"
         ref="searchInput"
         class="search-input"
+        placeholder="Search your folders"
+        searchPlaceholder=""
       >
       </ui-select>
     </div>
