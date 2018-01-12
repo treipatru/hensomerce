@@ -18,6 +18,7 @@
       <ui-checkbox
         v-model="includeSubfolders"
         :disabled="!selHasSubfolders"
+        @change="exportRecursive"
       >
         Include subfolders?
       </ui-checkbox>
@@ -28,7 +29,6 @@
         color="primary"
         type="secondary"
         @click="cancelSelection"
-        class=""
       >
         Cancel
       </ui-button>
@@ -36,7 +36,6 @@
         color="primary"
         type="primary"
         @click="saveSelection"
-        class=""
         :disabled="userInput ? false : true"
       >
         Save
@@ -62,12 +61,11 @@
     data() {
       return {
         folders: [],
-        userInput: '',
+        userInput: {},
         folderChromeData: [],
-        links: {},
-        linksRec: {},
         includeSubfolders: false,
-        selHasSubfolders: false
+        selHasSubfolders: false,
+        exports: {}
       }
     },
 
@@ -79,14 +77,15 @@
           vm.getFoldersData(res[0])
         })
       },
+
       getFoldersData: function (obj) {
-        // Recursively look for bookmarks in a folder and create
-        // data for dropdown list
+        // Recursively look for bookmarks in root
+        // and create data for dropdown list
         let vm = this
 
         if (obj.children) {
           // If obj has children, skip
-          for (var i = 0; i < obj.children.length; i++) {
+          for (let i = 0; i < obj.children.length; i++) {
             vm.getFoldersData(obj.children[i])
           }
         }
@@ -110,48 +109,69 @@
           })
         }
       },
+
       selectFolder: function () {
         let vm = this
 
         // Clear previous folder status
+        Object.keys(vm.exports).forEach(function(key) {
+          delete vm.exports[key]
+        })
         vm.selHasSubfolders = false
+        vm.includeSubfolders = false
 
         chrome.bookmarks.getChildren(vm.userInput.id, function (res) {
           vm.folderChromeData = res
-          vm.getChildren(vm.folderChromeData)
-          vm.getChildrenRec(vm.folderChromeData)
+          vm.makeList(vm.folderChromeData)
+
+          for (let elem of res) {
+            if (!elem.url) {
+              vm.selHasSubfolders = true
+              return
+            }
+          }
         })
       },
-      getChildren: function (arr) {
+
+      makeList: function (arr) {
         // Extract first level bookmarks from a folder
         let vm = this
+        vm.exports[vm.userInput.id] = {
+          id: vm.userInput.id,
+          links: {},
+          name: vm.userInput.title
+        }
 
         for (let elem of arr) {
           if (elem.url) {
-            vm.links[elem.id] = {
+            vm.exports[vm.userInput.id].links[elem.id] = {
               title: elem.title,
               url: elem.url
             }
           }
         }
       },
-      getChildrenRec: function (arr) {
+
+      makeListRecursive: function (arr, parentId, parentTitle) {
         // Recursively extract bookmarks from a folder
         let vm = this
+
+        vm.exports[parentId] = {
+          id: parentId,
+          links: {},
+          name: parentTitle
+        }
 
         for (let elem of arr) {
           // If it's a folder
           if (!elem.url) {
             chrome.bookmarks.getChildren(elem.id, function (res) {
-              vm.getChildrenRec(res)
-
-              //Allow user to select subfolders
-              vm.selHasSubfolders = true
+              vm.makeListRecursive(res, elem.id, elem.title)
             })
           } else {
             // Or a bookmark
             if (elem.url) {
-              vm.linksRec[elem.id] = {
+              vm.exports[parentId].links[elem.id] = {
                 title: elem.title,
                 url: elem.url
               }
@@ -159,28 +179,27 @@
           }
         }
       },
-      saveSelection: function () {
-        let obj = {
-          name: this.userInput.title,
-          id: this.userInput.id,
-          links: null
-        }
 
+      exportRecursive: function () {
         if (this.includeSubfolders) {
-          obj.links = this.linksRec
-        } else {
-          obj.links = this.links
+          this.makeListRecursive(this.folderChromeData, this.userInput.id, this.userInput.title)
         }
-
-        this.$emit('saveList', obj, obj.id)
       },
+
+      saveSelection: function () {
+        this.$emit('saveList', this.exports)
+      },
+
       cancelSelection: function () {
         this.$emit('cancelSelection')
       }
     },
 
-    props: [
-      'lists'
-    ]
+    props: {
+      lists: {
+        type: Object,
+        required: false
+      }
+    }
   }
 </script>
