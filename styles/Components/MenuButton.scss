@@ -33,16 +33,16 @@
   .sonar {
     z-index: -1;
     display: block;
+    position: fixed;
     height: 8rem;
     width: 8rem;
-    position: fixed;
-    left: -4rem;
-    top: -4rem;
+    left: -3rem;
+    top: -3rem;
     border: 1px solid $li-accent-1;
     border-radius: 50%;
     user-select: none;
 
-    animation: sonar 1.7s ease-out;
+    animation: sonar 4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
     animation-iteration-count: infinite;
     opacity: 0.0;
   }
