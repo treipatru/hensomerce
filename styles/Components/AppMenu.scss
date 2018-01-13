@@ -5,7 +5,9 @@
   flex-direction: column;
   padding-top: 3.5rem;
   z-index: 10;
-  background: $li-main-background-active;
+
+  @include theme(light, background, $li-main-background-active);
+  @include theme(dark, background, $dk-main-background-active);
 
   .menu-item {
     text-decoration: none;
@@ -23,20 +25,26 @@
     svg {
       width: 2rem;
       height: 2rem;
-      fill: $li-base;
       transition: fill .3s ease-in-out;
+
+      @include theme(light, fill, $li-base);
+      @include theme(dark, fill, $dk-base);
     }
 
     &:hover {
       svg {
-        fill: lighten( $li-base, 15% );
+        $light: lighten($li-base, 15%);
+        $dark: lighten($dk-base, 50%);
+
+        @include theme(light, fill, $light);
+        @include theme(dark, fill, $dark);
       }
     }
 
-
     &.active {
       svg {
-        fill: $li-accent-1;
+        @include theme(light, fill, $li-accent-1);
+        @include theme(dark, fill, $dk-accent-1);
       }
     }
   }

@@ -1,6 +1,9 @@
 .view {
-  margin-left: 2rem;
+  padding-left: 2rem;
   position: absolute;
+
+  @include theme(light, background, $li-main-background-active);
+  @include theme(dark, background, $dk-main-background-active);
 
   .header {
     font-size: 2em;

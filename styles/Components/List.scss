@@ -7,11 +7,21 @@
   // List wrapper
   // --------------------
   .card {
-    width: 32%;
-    background: $li-main-background-active;
+    border-radius: 0.2rem 0.2rem 0 0;
 
-    @media (max-width: 64rem) {
-      width: 48%;
+    @include theme(light, background, $li-main-background-active);
+    @include theme(dark, background, $dk-main-background-active);
+
+    &.col-2 {
+      width: 49%;
+    }
+
+    &.col-3 {
+      width: 32%;
+    }
+
+    &.col-4 {
+      width: 24%;
     }
 
     // Draggabilly dragging style
@@ -54,8 +64,6 @@
       }
 
       .header {
-        background: $li-accent-2;
-        color: $li-light-1;
         border-radius: 0.2rem 0.2rem 0 0;
         padding: 0.2rem 0.6rem;
         width: 100%;
@@ -63,6 +71,12 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+
+        @include theme(light, background, $li-accent-2);
+        @include theme(light, color, $li-light-1);
+
+        @include theme(dark, background, $dk-accent-2);
+        @include theme(dark, color, $dk-light-1);
 
         p {
           margin: 0;
@@ -100,12 +114,17 @@
             flex-direction: row;
             align-content: center;
             align-items: center;
-            color: $li-base;
             font-size: 0.8rem;
 
+            @include theme(light, color, $li-base);
+            @include theme(dark, color, $dk-base);
+
             &:hover {
-              color: $li-light-2;
-              background: $li-light-1;
+              @include theme(light, color, $li-light-2);
+              @include theme(light, background, $li-light-1);
+
+              @include theme(dark, color, $dk-light-2);
+              @include theme(dark, background, $dk-light-1);
             }
 
             span {

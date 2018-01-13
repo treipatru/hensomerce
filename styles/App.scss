@@ -9,6 +9,15 @@ $li-light-2: #505DB7;
 $li-main-background: #F8F9FB;
 $li-main-background-active: #FFF;
 
+// Dark Theme
+$dk-base: #424242;
+$dk-accent-1: #2196f3;
+$dk-accent-2: #FF404C;
+$dk-light-1: #D1EDF3;
+$dk-light-2: #505DB7;
+$dk-main-background: #F8F9FB;
+$dk-main-background-active: #FFF;
+
 // IMPORTS
 // ------------------------------------
 @import 'Helpers';
@@ -32,11 +41,18 @@ html {
 }
 
 body {
-  background: $li-main-background;
   font-family: 'Roboto', sans-serif;
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  transition: all 0.1s ease-in;
+
+  &.light {
+    background: $li-main-background;
+  }
+  &.dark {
+    background: $dk-main-background;
+  }
 }
 
 // APP CONTAINER
@@ -48,8 +64,12 @@ body {
   overflow-x: hidden;
   padding-bottom: 1rem;
 
+  @include theme(light, color, $li-base);
+  @include theme(dark, color, $dk-base);
+
   &.active {
-    background: $li-main-background-active;
+    @include theme(light, background, $li-main-background-active);
+    @include theme(dark, background, $dk-main-background-active);
   }
 }
 
@@ -76,5 +96,6 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    margin-bottom: 1rem;
   }
 }

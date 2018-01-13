@@ -1,5 +1,8 @@
-// HELPER CLASSES
+// HELPERS
 // ------------------------------------
+
+// Classes
+// --------------------
 .reset-space {
   padding: 0;
   margin: 0;
@@ -15,4 +18,13 @@
 
 .invisible {
   visibility: hidden;
+}
+
+// Theme shortcut
+// Names are defined in body properties
+// --------------------
+@mixin theme($name, $property, $val) {
+  body.#{$name} & {
+    #{$property}: $val;
+  }
 }

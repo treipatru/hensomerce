@@ -1,17 +1,22 @@
 // APP TRANSITIONS
 // ------------------------------------
+
+// Short fade
+// --------------------
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .3s ease-in-out;
+  transition: opacity .25s cubic-bezier(.69, .15, .43, .91);
 }
 
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
 
+// Slide-in from left with fade
+// --------------------
 .slide-enter-active, .slide-leave-active {
   transition: transform 0.3s cubic-bezier(0, .9, .05, .93);
   transform: translateX(0);
-  animation: fadeAnim 0.45s cubic-bezier(.66,.22,.77,.44);
+  animation: fadeAnim 0.45s cubic-bezier(.66, .22, .77, .44);
 }
 
 .slide-enter, .slide-leave-to {
@@ -19,6 +24,10 @@
 }
 
 @keyframes fadeAnim {
-  0% { opacity: 0.0; }
-  100% { opacity: 1.0; }
+  0% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1.0;
+  }
 }
