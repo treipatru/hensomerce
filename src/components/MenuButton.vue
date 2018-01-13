@@ -9,7 +9,7 @@
     </a>
 
     <div
-      v-if="onboarding"
+      v-if="onboarding && !windowOpen"
       class="sonar"
     >
     </div>
