@@ -1,6 +1,7 @@
 .view {
   padding-left: 2rem;
   position: absolute;
+  min-width: 25%;
 
   @include theme(light, background, $li-main-background-active);
   @include theme(dark, background, $dk-main-background-active);
@@ -47,7 +48,22 @@
     }
   }
 
+  hr {
+    margin: 2rem 0 1rem 0;
+  }
+
   &.settings {
+    .columns-input, .themes-input {
+      width: 5rem;
+
+      .ui-select__display-value.is-placeholder {
+        text-transform: capitalize;
+      }
+    }
+
+    .options-save {
+    }
+
     .reset-wrap {
       padding: 1rem 0;
 

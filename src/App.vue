@@ -1,7 +1,7 @@
 <template>
   <div
     id="hensomerce"
-    :class="windowOpen ? 'active' : ''"
+    v-bind:class="{active: windowOpen}"
   >
 
     <menu-button
@@ -44,7 +44,7 @@
                 <div
                   v-for="(list, index) in storeCache.lists"
                   v-packery-item
-                  class="card"
+                  v-bind:class="cardClass"
                   :ref="list.id"
                   :key="index"
                 >
@@ -82,7 +82,9 @@
               <settings
                 v-if="viewActive === 'settings'"
                 :key="5"
+                :optionsInput="storeCache.options"
                 v-on:resetData="resetData"
+                v-on:saveOptions="saveOptions"
               >
               </settings>
             </transition-group>
@@ -117,12 +119,17 @@ export default {
   },
 
   computed: {
+    cardClass: function () {
+      let userCol = 'col-' + this.storeCache.options.columns
+      return ['card', userCol]
+    }
   },
 
   data () {
     return {
       storeCache: {
-        lists: {}
+        lists: {},
+        options: {}
       },
       onboarding: false,
       windowOpen: false,
@@ -139,6 +146,14 @@ export default {
         if (!vm.storeCache.lists || Object.keys(vm.storeCache.lists).length === 0) {
           vm.onboarding = true
         }
+
+        if (!vm.storeCache.options) {
+          vm.storeCache.options = {
+            columns: '3',
+            theme: 'light'
+          }
+        }
+        document.body.classList = vm.storeCache.options.theme
       })
     },
 
@@ -195,6 +210,17 @@ export default {
     windowToggle: function () {
       this.windowOpen = !this.windowOpen
       this.viewActive = 'add'
+    },
+
+    saveOptions: function (obj) {
+      let vm = this
+      Object.keys(obj).forEach(function(key) {
+        Vue.set(vm.storeCache.options, key, obj[key])
+      })
+      this.syncStorageUp()
+      setTimeout(function(){
+        location.reload()
+        }, 230)
     }
   },
   mounted: function () {

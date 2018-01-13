@@ -31,6 +31,7 @@
         color="primary"
         type="secondary"
         @click="cancelSelection"
+        raised
       >
         Cancel
       </ui-button>
@@ -39,6 +40,7 @@
         type="primary"
         @click="saveSelection"
         :disabled="userInput ? false : true"
+        raised
       >
         Save
       </ui-button>
