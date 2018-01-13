@@ -10,7 +10,6 @@
       v-on:click.prevent="emitButtonClick('add')"
     >
       <AddIcon/>
-      <ui-ripple-ink trigger="add"></ui-ripple-ink>
     </a>
     <a
       href="#"
@@ -19,7 +18,6 @@
       v-on:click.prevent="emitButtonClick('settings')"
     >
       <SettingsIcon/>
-      <ui-ripple-ink trigger="settings"></ui-ripple-ink>
     </a>
   </div>
 </template>
@@ -27,11 +25,9 @@
 <script>
   import AddIcon from '../svg/ic_add_box_black_24px.svg'
   import SettingsIcon from '../svg/ic_settings_applications_black_24px.svg'
-  import { UiRippleInk } from 'keen-ui';
 
   export default {
     components: {
-      UiRippleInk,
       AddIcon,
       SettingsIcon
     },
