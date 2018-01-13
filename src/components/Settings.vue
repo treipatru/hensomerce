@@ -3,26 +3,32 @@
     <p class="header">{{str.header}}</p>
 
     <!-- APP OPTIONS CONTROLLERS -->
-    <p class="subheader">{{str.subhCols}}</p>
-    <ui-select
-      :options="columnsNo"
-      v-model="columnsSel"
-      class="columns-input"
-      @select="dataExport.columns =  columnsSel"
-      :placeholder="optionsInput.columns"
-    >
-    </ui-select>
+    <div class="cols-wrap">
+      <div class="box">
+        <p class="subheader">{{str.subhCols}}</p>
+        <ui-select
+          :options="columnsNo"
+          v-model="columnsSel"
+          class="columns-input"
+          @select="dataExport.columns =  columnsSel"
+          :placeholder="optionsInput.columns"
+        >
+        </ui-select>
+      </div>
 
-    <p class="subheader">{{str.subhTheme}}</p>
-    <ui-select
-      :options="themes"
-      v-model="themeSel"
-      :keys="{ label: 'name', value: 'id' }"
-      class="themes-input"
-      @select="dataExport.theme =  themeSel.id"
-      :placeholder="optionsInput.theme"
-    >
-    </ui-select>
+      <div class="box">
+        <p class="subheader">{{str.subhTheme}}</p>
+        <ui-select
+          :options="themes"
+          v-model="themeSel"
+          :keys="{ label: 'name', value: 'id' }"
+          class="themes-input"
+          @select="dataExport.theme =  themeSel.id"
+          :placeholder="optionsInput.theme"
+        >
+        </ui-select>
+      </div>
+    </div>
 
     <ui-button
       type="primary"
@@ -63,7 +69,6 @@
         </ui-button>
       </transition>
     </div>
-
   </div>
 </template>
 
@@ -81,7 +86,7 @@
           header: 'Settings',
           subhReset: 'Reset everything',
           resetB: 'No Ragrets',
-          confirmB: 'Cancel',
+          confirmB: 'Some Ragrets',
           resetYes: 'Reset',
           subhCols: 'Columns',
           subhTheme: 'Theme',

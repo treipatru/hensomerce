@@ -1,7 +1,6 @@
 .view {
   padding-left: 2rem;
   position: absolute;
-  min-width: 25%;
 
   @include theme(light, background, $li-main-background-active);
   @include theme(dark, background, $dk-main-background-active);
@@ -17,7 +16,7 @@
     font-size: 1.4em;
     font-weight: 400;
     margin: 0;
-    padding-bottom: 0.5rem;
+    padding: 0.5rem 0 1.5rem 0;
   }
 
   &.add-folder {
@@ -49,29 +48,45 @@
   }
 
   hr {
-    margin: 2rem 0 1rem 0;
+    margin: 3rem 0 1rem 0;
   }
 
   &.settings {
-    .columns-input, .themes-input {
-      width: 5rem;
+    .cols-wrap{
+      display: flex;
+      flex-direction: row;
 
-      .ui-select__display-value.is-placeholder {
-        text-transform: capitalize;
+      > div:first-child {
+        padding-right:  3rem;
+      }
+
+      .box {
+        .columns-input, .themes-input {
+          width: 6rem;
+
+          .ui-select__display-value.is-placeholder {
+            text-transform: capitalize;
+          }
+
+          .ui-select__dropdown {
+            min-width: 6rem;
+          }
+        }
       }
     }
 
     .options-save {
+      margin-top: 1rem;
     }
 
     .reset-wrap {
-      padding: 1rem 0;
+      padding: 0;
 
       button {
         margin-right: 0.3rem;
       }
       .resetb {
-        min-width: 15ch;
+        min-width: 18ch;
       }
     }
   }
