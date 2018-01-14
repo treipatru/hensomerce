@@ -20,7 +20,7 @@
       <ui-checkbox
         v-model="includeSubfolders"
         :disabled="!selHasSubfolders"
-        @change="exportRecursive"
+        @change="exportSubfolders = !exportSubfolders"
       >
         Include subfolders?
       </ui-checkbox>
@@ -66,16 +66,17 @@
       return {
         folders: [],
         userInput: {},
-        folderChromeData: [],
+        countRec: 0,
         includeSubfolders: false,
         selHasSubfolders: false,
+        exportSubfolders: false,
         exports: {}
       }
     },
 
     methods: {
       getChromeData: function () {
-        // Get top level bookmark folders
+        // Process Chrome bookmarks tree
         let vm = this
         chrome.bookmarks.getTree(function (res) {
           vm.getFoldersData(res[0])
@@ -83,51 +84,33 @@
       },
 
       getFoldersData: function (obj) {
-        // Recursively look for bookmarks in root
-        // and create data for dropdown list
+        // Recursively look for folders in Chrome data
+        // Create data for select list
         let vm = this
 
         if (obj.children) {
-          // If obj has children, skip
-          for (let i = 0; i < obj.children.length; i++) {
-            vm.getFoldersData(obj.children[i])
-          }
-        }
-        else if (!obj.children) {
-          // If obj does not have children get it's parent and add it to select
-          chrome.bookmarks.get(obj.parentId, function (res) {
-            let elTitle = res[0].title
-            let lists = vm.lists || {}
-            let lastFolder = vm.folders[vm.folders.length - 1] || ''
-
-            // Bookmark parents show only once in list
-            // and are hidden if already loaded
-            if (elTitle !== lastFolder.title && !lists[res[0].id]) {
-              let entry = {
-                id: obj.parentId,
-                title: elTitle
-              }
-
-              vm.folders.push(entry)
+          // Only if it has a title and isn't already in grid
+          if (obj.title && !vm.lists[obj.id]) {
+            let entry = {
+              id: obj.id,
+              title: obj.title
             }
-          })
+            vm.folders.push(entry)
+          }
+
+          for (let elem of obj.children) {
+            vm.getFoldersData(elem)
+          }
         }
       },
 
       selectFolder: function () {
         let vm = this
-
-        // Clear previous folder status
-        Object.keys(vm.exports).forEach(function(key) {
-          delete vm.exports[key]
-        })
+        // Clear old data
         vm.selHasSubfolders = false
         vm.includeSubfolders = false
-
+        // Check for subfolders
         chrome.bookmarks.getChildren(vm.userInput.id, function (res) {
-          vm.folderChromeData = res
-          vm.makeList(vm.folderChromeData)
-
           for (let elem of res) {
             if (!elem.url) {
               vm.selHasSubfolders = true
@@ -137,61 +120,79 @@
         })
       },
 
-      makeList: function (arr) {
-        // Extract first level bookmarks from a folder
+      makeList: function (id) {
         let vm = this
-        vm.exports[vm.userInput.id] = {
-          id: vm.userInput.id,
-          links: {},
-          name: vm.userInput.title
-        }
 
-        for (let elem of arr) {
-          if (elem.url) {
-            vm.exports[vm.userInput.id].links[elem.id] = {
-              title: elem.title,
-              url: elem.url
+        chrome.bookmarks.get(id, function (res) {
+          let listTitle = res[0].title
+
+          chrome.bookmarks.getChildren(id, function (res) {
+            vm.exports[id] = {
+              id: id,
+              links: {},
+              name: listTitle
             }
-          }
-        }
-      },
 
-      makeListRecursive: function (arr, parentId, parentTitle) {
-        // Recursively extract bookmarks from a folder
-        let vm = this
-
-        vm.exports[parentId] = {
-          id: parentId,
-          links: {},
-          name: parentTitle
-        }
-
-        for (let elem of arr) {
-          // If it's a folder
-          if (!elem.url) {
-            chrome.bookmarks.getChildren(elem.id, function (res) {
-              vm.makeListRecursive(res, elem.id, elem.title)
-            })
-          } else {
-            // Or a bookmark
-            if (elem.url) {
-              vm.exports[parentId].links[elem.id] = {
-                title: elem.title,
-                url: elem.url
+            for (let elem of res) {
+              if (elem.url) {
+                vm.exports[id].links[elem.id] = {
+                  title: elem.title,
+                  url: elem.url
+                }
               }
             }
-          }
-        }
+            vm.$emit('saveList', vm.exports)
+          })
+        })
       },
 
-      exportRecursive: function () {
-        if (this.includeSubfolders) {
-          this.makeListRecursive(this.folderChromeData, this.userInput.id, this.userInput.title)
-        }
+      makeListRec: function (id) {
+        let vm = this
+        vm.countRec++
+
+        chrome.bookmarks.get(id, function (res) {
+          let listTitle = res[0].title
+
+          chrome.bookmarks.getChildren(id, function (res) {
+            vm.exports[id] = {
+              id: id,
+              links: {},
+              name: listTitle
+            }
+
+            for (let i = 0; i < res.length; i++) {
+              // Folders
+              if (!res[i].url) {
+                vm.makeListRec(res[i].id)
+              } else {
+                // Bookmarks
+                if (res[i].url) {
+                  vm.exports[id].links[res[i].id] = {
+                    title: res[i].title,
+                    url: res[i].url
+                  }
+                }
+              }
+              // If it's the last bookmark in the list
+              // check to see if ready to save
+              if (i === res.length - 1) {
+                vm.countRec--
+                if (vm.countRec === 0) {
+                  vm.$emit('saveList', vm.exports)
+                }
+              }
+            }
+          })
+        })
       },
 
       saveSelection: function () {
-        this.$emit('saveList', this.exports)
+        let vm = this
+        if (this.exportSubfolders) {
+          vm.makeListRec(vm.userInput.id)
+        } else {
+          vm.makeList(vm.userInput.id)
+        }
       },
 
       cancelSelection: function () {
