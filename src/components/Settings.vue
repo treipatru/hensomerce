@@ -47,10 +47,10 @@
     <p class="subheader">{{str.subhReset}}</p>
     <div class="reset-wrap">
       <ui-button
-        type="secondary"
+        type="primary"
         raised
         size="small"
-        color="primary"
+        color="default"
         class="resetb"
         @click="resetState = !resetState"
       >

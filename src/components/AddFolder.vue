@@ -28,8 +28,8 @@
 
     <div class="buttons">
       <ui-button
-        color="primary"
-        type="secondary"
+        color="default"
+        type="primary"
         @click="cancelSelection"
         raised
       >
@@ -90,7 +90,7 @@
 
         if (obj.children) {
           // Only if it has a title and isn't already in grid
-          if (obj.title && !vm.lists[obj.id]) {
+          if (obj.title) {
             let entry = {
               id: obj.id,
               title: obj.title

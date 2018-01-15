@@ -26,6 +26,27 @@
 
       .ui-select {
         font-size: 0.9rem !important;
+
+        .ui-select__display-value {
+          @include theme(light, color, $li-base);
+          @include theme(dark, color, $dk-base);
+
+          &.is-placeholder {
+            @include theme(light, color, lighten($li-base, 30%));
+            @include theme(dark, color, darken($dk-base, 30%));
+          }
+        }
+
+        .ui-select__dropdown {
+          @include theme(dark, background, lighten($dk-main-background, 70%));
+
+          .ui-select-option {
+            @include theme(dark, background, lighten($dk-main-background, 70%));
+            &.is-highlighted {
+              @include theme(dark, background, lighten($dk-main-background, 60%));
+            }
+          }
+        }
       }
     }
 
@@ -64,12 +85,23 @@
         .columns-input, .themes-input {
           width: 6rem;
 
-          .ui-select__display-value.is-placeholder {
-            text-transform: capitalize;
+          .ui-select__display-value {
+            @include theme(light, color, $li-base);
+            @include theme(dark, color, $dk-base);
+
+            &.is-placeholder{
+              text-transform: capitalize;
+              @include theme(light, color, lighten($li-base, 30%));
+              @include theme(dark, color, darken($dk-base, 30%));
+            }
           }
 
           .ui-select__dropdown {
             min-width: 6rem;
+
+            .ui-select__options {
+              @include theme(dark, background, lighten($dk-main-background, 70%));
+            }
           }
         }
       }
