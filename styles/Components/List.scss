@@ -73,10 +73,10 @@
         justify-content: space-between;
 
         @include theme(light, background, $li-accent-2);
-        @include theme(light, color, $li-light-1);
+        @include theme(light, color, $li-light);
 
         @include theme(dark, background, $dk-accent-2);
-        @include theme(dark, color, $dk-light-1);
+        @include theme(dark, color, darken($dk-base, 45%));
 
         p {
           margin: 0;
@@ -120,8 +120,8 @@
             @include theme(dark, color, $dk-base);
 
             &:hover {
-              @include theme(light, color, $li-light-2);
-              @include theme(light, background, $li-light-1);
+              @include theme(light, color, darken($li-accent-2, 40%));
+              @include theme(light, background, $li-light);
 
               @include theme(dark, color, darken($dk-base, 80%));
               @include theme(dark, background, lighten($dk-main-background, 15%));
