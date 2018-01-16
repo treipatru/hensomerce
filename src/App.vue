@@ -147,6 +147,10 @@ export default {
           vm.onboarding = true
         }
 
+        if (!vm.storeCache.lists) {
+          vm.storeCache.lists = {}
+        }
+
         if (!vm.storeCache.options) {
           vm.storeCache.options = {
             columns: '3',

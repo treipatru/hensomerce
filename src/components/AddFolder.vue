@@ -90,7 +90,7 @@
 
         if (obj.children) {
           // Only if it has a title and isn't already in grid
-          if (obj.title) {
+          if (obj.title && !vm.lists[obj.id]) {
             let entry = {
               id: obj.id,
               title: obj.title
