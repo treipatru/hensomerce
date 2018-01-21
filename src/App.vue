@@ -237,10 +237,18 @@ export default {
       setTimeout(function(){
         location.reload()
         }, 230)
+    },
+
+    handleKeyPress: function (e) {
+      if (e.keyCode === 27) {
+        this.windowToggle()
+      }
     }
   },
   mounted: function () {
     let vm = this
+
+    window.addEventListener('keydown', vm.handleKeyPress, false)
 
     chrome.bookmarks.onCreated.addListener(function(id, obj) {
       if (vm.storeCache.lists[obj.parentId]) {
