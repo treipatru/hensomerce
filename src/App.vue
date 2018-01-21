@@ -243,6 +243,9 @@ export default {
     let vm = this
 
     chrome.bookmarks.onCreated.addListener(function(id, obj) {
+      if (vm.storeCache.lists[obj.parentId]) {
+        vm.addLink(id, obj.parentId)
+      }
     })
 
     chrome.bookmarks.onRemoved.addListener(function(id, obj) {
@@ -272,18 +275,18 @@ export default {
     })
 
     chrome.bookmarks.onMoved.addListener(function(id, obj) {
-      // Handle move links between different rendered parents
+      // Handle move links between parents in the grid
       if (vm.storeCache.lists[obj.oldParentId] &&
           vm.storeCache.lists[obj.parentId] &&
           obj.parentId !== obj.oldParentId) {
         vm.deleteLink(id, obj.oldParentId)
         vm.addLink(id, obj.parentId)
       }
-      // Move from rendered parent to unrendered one
+      // Move from grid parent to outside of grid
       if (vm.storeCache.lists[obj.oldParentId] && !vm.storeCache.lists[obj.parentId]) {
         vm.deleteLink(id, obj.oldParentId)
       }
-      // Move from unrendered parent to rendered one
+      // Move from outside of grid parent to grid parent
       if (vm.storeCache.lists[obj.parentId] && !vm.storeCache.lists[obj.oldParentId]) {
         vm.addLink(id, obj.parentId)
       }
