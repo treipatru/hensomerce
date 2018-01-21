@@ -201,6 +201,18 @@ export default {
       this.syncStorageUp()
     },
 
+    addLink: function (id, parentId) {
+      let vm = this
+      chrome.bookmarks.get(id, function (res) {
+        let o = {
+          title: res[0].title,
+          url: res[0].url
+        }
+        Vue.set(vm.storeCache.lists[parentId].links, id, o)
+        vm.syncStorageUp()
+      })
+    },
+
     resetData: function () {
       chrome.storage.local.clear()
       this.syncStorageDown()
@@ -231,8 +243,6 @@ export default {
     let vm = this
 
     chrome.bookmarks.onCreated.addListener(function(id, obj) {
-      console.log('Created: ' + id)
-      console.log(obj)
     })
 
     chrome.bookmarks.onRemoved.addListener(function(id, obj) {
@@ -262,13 +272,24 @@ export default {
     })
 
     chrome.bookmarks.onMoved.addListener(function(id, obj) {
-      console.log('Moved: ' + id)
-      console.log(obj)
+      // Handle move links between different rendered parents
+      if (vm.storeCache.lists[obj.oldParentId] &&
+          vm.storeCache.lists[obj.parentId] &&
+          obj.parentId !== obj.oldParentId) {
+        vm.deleteLink(id, obj.oldParentId)
+        vm.addLink(id, obj.parentId)
+      }
+      // Move from rendered parent to unrendered one
+      if (vm.storeCache.lists[obj.oldParentId] && !vm.storeCache.lists[obj.parentId]) {
+        vm.deleteLink(id, obj.oldParentId)
+      }
+      // Move from unrendered parent to rendered one
+      if (vm.storeCache.lists[obj.parentId] && !vm.storeCache.lists[obj.oldParentId]) {
+        vm.addLink(id, obj.parentId)
+      }
     })
 
     chrome.bookmarks.onChildrenReordered.addListener(function(id, obj) {
-      console.log('Children reordered: ' + id)
-      console.log(obj)
     })
   }
 }
