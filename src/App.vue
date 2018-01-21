@@ -291,9 +291,6 @@ export default {
         vm.addLink(id, obj.parentId)
       }
     })
-
-    chrome.bookmarks.onChildrenReordered.addListener(function(id, obj) {
-    })
   }
 }
 </script>
