@@ -7,6 +7,10 @@
     align-content: center;
     align-items: center;
     user-select: none;
+    left: 50%;
+    transform: translateX(-50%);
+    position: fixed;
+    width: 100%;
 
     h1 {
       text-align: center;

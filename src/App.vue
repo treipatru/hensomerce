@@ -18,19 +18,19 @@
         <transition-group name="fade" mode="out-in">
           <!-- Render page content -->
           <div
-            v-if="!windowOpen"
+            v-show="!windowOpen"
             :key="0"
             id="content-window"
           >
             <transition-group name="fade" mode="out-in">
               <onboarding
-                v-if="onboarding"
+                v-if="onboarding && !windowOpen"
                 :key="2"
               >
               </onboarding>
 
               <div
-                v-else
+                v-if="!onboarding && !windowOpen"
                 :key="3"
                 class="cards-container"
                 ref="cardsContainer"
@@ -60,13 +60,12 @@
 
           <!-- Render action window -->
           <div
-            v-else
+            v-if="windowOpen"
             id="action-window"
             :key="1"
           >
             <app-menu
               v-on:emitButtonClick="handleMenuClick"
-              :window-open="windowOpen"
               :view-active="viewActive"
             >
             </app-menu>

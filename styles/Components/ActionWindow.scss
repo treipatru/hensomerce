@@ -2,9 +2,6 @@
   padding-left: 2rem;
   position: absolute;
 
-  @include theme(light, background, $li-main-background-active);
-  @include theme(dark, background, $dk-main-background-active);
-
   .header {
     font-size: 2em;
     font-weight: 300;
@@ -91,12 +88,12 @@
   }
 
   &.settings {
-    .cols-wrap{
+    .cols-wrap {
       display: flex;
       flex-direction: row;
 
       > div:first-child {
-        padding-right:  3rem;
+        padding-right: 3rem;
       }
 
       .box {
@@ -107,7 +104,7 @@
             @include theme(light, color, $li-base);
             @include theme(dark, color, $dk-base);
 
-            &.is-placeholder{
+            &.is-placeholder {
               text-transform: capitalize;
               @include theme(light, color, lighten($li-base, 30%));
               @include theme(dark, color, darken($dk-base, 30%));

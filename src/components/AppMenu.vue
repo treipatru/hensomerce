@@ -1,7 +1,6 @@
 <template>
   <div
     class="menu-actions"
-    v-if="windowOpen"
   >
     <a
       href="#"
@@ -41,7 +40,7 @@
       }
     },
     props: [
-      'windowOpen', 'viewActive'
+      'viewActive'
     ]
   }
 </script>
