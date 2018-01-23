@@ -1,11 +1,17 @@
 <template>
-    <div class="onboarding">
-      <h1>Add a folder to get started.</h1>
-      <div class="fire-container">
-        <span class="emoji">
-          &#x1F525;
-        </span>
-        <span class="ripple"></span>
-      </div>
+  <div class="onboarding">
+    <div class="fire-container">
+      <HenIcon class="ill"></HenIcon>
     </div>
+  </div>
 </template>
+
+<script>
+  import HenIcon from '../svg/hen.svg'
+
+  export default {
+    components: {
+      HenIcon
+    }
+  }
+</script>

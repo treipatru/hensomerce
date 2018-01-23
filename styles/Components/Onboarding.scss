@@ -11,23 +11,21 @@
     transform: translateX(-50%);
     position: fixed;
     width: 100%;
-
-    h1 {
-      text-align: center;
-      font-size: 2.5rem;
-      font-weight: 500;
-    }
+    height: 100%;
 
     .fire-container {
       display: flex;
       align-items: center;
       align-content: center;
       position: relative;
+      height: 100%;
 
-      .emoji {
-        font-size: 5rem;
-        margin: 0;
-        z-index: 5;
+      svg.ill {
+        transform: scale(4) translateY(-20%);
+        opacity: 0.05;
+
+        @include theme(light, fill, $li-accent-2);
+        @include theme(dark, fill, $dk-accent-1);
       }
     }
   }
