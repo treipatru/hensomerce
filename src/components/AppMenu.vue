@@ -18,17 +18,27 @@
     >
       <SettingsIcon/>
     </a>
+    <a
+      href="#"
+      ref="reset"
+      v-bind:class="['menu-item', viewActive === 'reset' ? 'active' : '']"
+      v-on:click.prevent="emitButtonClick('reset')"
+    >
+      <ResetIcon/>
+    </a>
   </div>
 </template>
 
 <script>
-  import AddIcon from '../svg/ic_add_box_black_24px.svg'
-  import SettingsIcon from '../svg/ic_settings_applications_black_24px.svg'
+  import AddIcon from '../svg/ic_add_black_24px.svg'
+  import SettingsIcon from '../svg/ic_settings_black_24px.svg'
+  import ResetIcon from '../svg/ic_settings_backup_restore_black_24px.svg'
 
   export default {
     components: {
       AddIcon,
-      SettingsIcon
+      SettingsIcon,
+      ResetIcon
     },
     data () {
       return {
