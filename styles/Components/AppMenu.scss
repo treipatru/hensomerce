@@ -30,11 +30,8 @@
 
     &:hover {
       svg {
-        $light: lighten($li-base, 15%);
-        $dark: lighten($dk-base, 50%);
-
-        @include theme(light, fill, $light);
-        @include theme(dark, fill, $dark);
+        @include theme(light, fill, lighten($li-base, 15%));
+        @include theme(dark, fill, lighten($dk-base, 50%));
       }
     }
 

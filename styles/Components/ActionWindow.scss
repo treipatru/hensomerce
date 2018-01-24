@@ -7,6 +7,7 @@
     font-weight: 300;
     margin: 0;
     padding-bottom: 2rem;
+    user-select: none;
   }
 
   .subheader {
@@ -14,6 +15,7 @@
     font-weight: 400;
     margin: 0;
     padding: 0.5rem 0 1.5rem 0;
+    user-select: none;
   }
 
   &.add-folder {
@@ -64,6 +66,7 @@
       }
 
       .ui-checkbox__label-text {
+        user-select: none;
         @include theme(light, color, $li-base);
         @include theme(dark, color, $dk-base);
       }

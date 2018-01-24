@@ -15,7 +15,7 @@
     }
 
     &:hover {
-      opacity: 0.8
+      opacity: 0.9
     }
 
     svg.menu-icon {
@@ -28,6 +28,12 @@
 
       &.active {
         transform: translateX(0.5rem) scale(1.2);
+
+        &:hover {
+          opacity: 1;
+          @include theme(light, fill, lighten($li-base, 15%));
+          @include theme(dark, fill, lighten($dk-base, 50%));
+        }
       }
     }
   }
@@ -44,7 +50,7 @@
     user-select: none;
     border: 1px solid;
 
-    @include theme(light, border-color, $li-accent-1);
+    @include theme(light, border-color, $li-accent-2);
     @include theme(dark, border-color, $dk-accent-1);
 
     animation: sonar 4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
