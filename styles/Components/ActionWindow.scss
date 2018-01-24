@@ -137,4 +137,21 @@
       }
     }
   }
+
+  &.reset {
+    .subheader.reset {
+      display: flex;
+      align-content: center;
+      align-items: center;
+
+      svg.help {
+        margin-left: 0.5rem;
+        width: 1em;
+        height: 1rem;
+
+        @include theme(light, fill, lighten($li-base, 20%));
+        @include theme(dark, fill, darken($dk-base, 20%));
+      }
+    }
+  }
 }

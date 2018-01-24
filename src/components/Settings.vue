@@ -1,8 +1,6 @@
 <template>
   <div class="view settings">
     <p class="header">{{str.header}}</p>
-
-    <!-- APP OPTIONS CONTROLLERS -->
     <div class="cols-wrap">
       <div class="box">
         <p class="subheader">{{str.subhCols}}</p>
@@ -40,35 +38,6 @@
     >
       {{str.saveB}}
     </ui-button>
-
-    <hr>
-
-    <!-- RESET EXTENSION DATA -->
-    <p class="subheader">{{str.subhReset}}</p>
-    <div class="reset-wrap">
-      <ui-button
-        type="primary"
-        raised
-        size="small"
-        color="default"
-        class="resetb"
-        @click="resetState = !resetState"
-      >
-        {{resetState ? str.confirmB : str.resetB}}
-      </ui-button>
-      <transition name="fade">
-        <ui-button
-          type="primary"
-          raised
-          size="small"
-          color="red"
-          @click="resetData"
-          v-if="resetState"
-        >
-          {{str.resetYes}}
-        </ui-button>
-      </transition>
-    </div>
   </div>
 </template>
 
@@ -84,15 +53,10 @@
       return {
         str: {
           header: 'Settings',
-          subhReset: 'Reset everything',
-          resetB: 'No Ragrets',
-          confirmB: 'Some Ragrets',
-          resetYes: 'Reset',
           subhCols: 'Columns',
           subhTheme: 'Theme',
           saveB: 'Save',
         },
-        resetState: false,
         columnsNo: ['2', '3', '4'],
         columnsSel: '',
         themeSel: {},
@@ -114,9 +78,6 @@
       }
     },
     methods: {
-      resetData: function () {
-        this.$emit('resetData')
-      },
       saveOptions: function () {
         this.$emit('saveOptions', this.dataExport)
       }

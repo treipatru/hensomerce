@@ -86,6 +86,12 @@
                 v-on:saveOptions="saveOptions"
               >
               </settings>
+              <reset-data
+                v-if="viewActive === 'reset'"
+                :key="6"
+                v-on:resetData="resetData"
+              >
+              </reset-data>
             </transition-group>
           </div>
         </transition-group>
@@ -102,6 +108,7 @@ import List from './components/List.vue'
 import Onboarding from './components/Onboarding.vue'
 import AddFolder from './components/AddFolder.vue'
 import Settings from './components/Settings.vue'
+import ResetData from './components/ResetData.vue'
 
 export default {
   created: function () {
@@ -114,7 +121,8 @@ export default {
     List,
     Onboarding,
     AddFolder,
-    Settings
+    Settings,
+    ResetData
   },
 
   computed: {
