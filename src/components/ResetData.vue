@@ -52,7 +52,7 @@
     data() {
       return {
         str: {
-          header: 'Restore',
+          header: 'Reset',
           subhReset: 'Delete extension data',
           resetB: 'No Ragrets',
           confirmB: 'Some Ragrets',

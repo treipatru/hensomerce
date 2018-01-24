@@ -58,14 +58,10 @@ module.exports = {
       {
         from: 'static',
         to: './'
-      },
-      {
-        from: 'node_modules/keen-ui/dist/keen-ui.min.css',
-        to: './css'
       }
     ]),
     new ExtractTextPlugin({
-      filename: 'css/styles.css'
+      filename: 'styles.css'
     })
   ],
 
