@@ -4,7 +4,7 @@
     <div class="searchBox">
       <ui-select
         has-search
-        :options="folders"
+        :options="sortedFolders"
         :keys="{ label: 'title', value: 'id' }"
         v-model="userInput"
         @select="selectFolder"
@@ -60,6 +60,12 @@
 
     created: function () {
       this.getChromeData()
+    },
+
+    computed: {
+      sortedFolders: function () {
+        return this.folders.sort(this.compare)
+      }
     },
 
     data() {
@@ -184,6 +190,19 @@
             }
           })
         })
+      },
+
+      compare: function (a, b) {
+        const titleA = a.title.toUpperCase()
+        const titleB = b.title.toUpperCase()
+
+        let comparison = 0
+        if (titleA > titleB) {
+          comparison = 1
+        } else if (titleA < titleB) {
+          comparison = -1
+        }
+        return comparison
       },
 
       saveSelection: function () {
