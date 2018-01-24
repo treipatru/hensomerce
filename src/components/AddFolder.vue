@@ -39,7 +39,7 @@
         color="primary"
         type="primary"
         @click="saveSelection"
-        :disabled="userInput ? false : true"
+        :disabled="userInput.id ? false : true"
         raised
       >
         Save

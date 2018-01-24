@@ -125,17 +125,6 @@
     .options-save {
       margin-top: 1rem;
     }
-
-    .reset-wrap {
-      padding: 0;
-
-      button {
-        margin-right: 0.3rem;
-      }
-      .resetb {
-        min-width: 18ch;
-      }
-    }
   }
 
   &.reset {
@@ -151,6 +140,18 @@
 
         @include theme(light, fill, lighten($li-base, 20%));
         @include theme(dark, fill, darken($dk-base, 20%));
+      }
+    }
+
+    .reset-wrap {
+      padding: 0;
+      margin-top: 1rem;
+
+      button {
+        margin-right: 0.3rem;
+      }
+      .resetb {
+        min-width: 18ch;
       }
     }
   }
