@@ -21,7 +21,7 @@
     svg.menu-icon {
       width: 1.5rem;
       height: 1.5rem;
-      transition: all 0.3s ease-in;
+      transition: all 0.40s ease-out;
 
       @include theme(light, fill, $li-base);
       @include theme(dark, fill, $dk-base);

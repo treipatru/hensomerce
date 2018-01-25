@@ -15,7 +15,7 @@
 
     <div v-bind:class="['content']">
 
-        <transition-group name="fade" mode="out-in">
+        <transition name="slide-right">
           <!-- Render page content -->
           <div
             v-show="!windowOpen"
@@ -57,8 +57,10 @@
               </div>
             </transition-group>
           </div>
+        </transition>
 
           <!-- Render action window -->
+          <transition name="slide-fade">
           <div
             v-if="windowOpen"
             id="action-window"
@@ -69,7 +71,7 @@
               :view-active="viewActive"
             >
             </app-menu>
-            <transition-group name="slide" mode="out-in">
+            <transition-group name="slide-fade" mode="out-in">
               <add-folder
                 v-if="viewActive === 'add'"
                 :key="4"
@@ -94,7 +96,7 @@
               </reset-data>
             </transition-group>
           </div>
-        </transition-group>
+        </transition>
     </div>
   </div>
 </template>
@@ -223,7 +225,7 @@ export default {
     resetData: function () {
       chrome.storage.local.clear()
       this.syncStorageDown()
-      this.windowToggle()
+      location.reload()
     },
 
     handleMenuClick: function (id) {
