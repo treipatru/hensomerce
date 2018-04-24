@@ -136,7 +136,8 @@
             vm.exports[id] = {
               id: id,
               links: {},
-              name: listTitle
+              name: listTitle,
+              color: 'default'
             }
 
             for (let elem of res) {
