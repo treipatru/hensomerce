@@ -1,6 +1,9 @@
 <template>
     <div class="list">
-      <div class="header">
+      <div
+        v-bind:class="['header', this.listData.color]"
+        @click="changeColor"
+      >
         <p>{{this.listData.name}}</p>
         <i
           class="material-icons close"
@@ -41,6 +44,9 @@
     methods: {
       deleteList: function () {
         this.$emit('deleteList', this.listData.id)
+      },
+      changeColor: function () {
+        this.$emit('updateHeaderColor', this.listData.id)
       }
     },
 
