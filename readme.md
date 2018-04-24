@@ -22,9 +22,11 @@ I started developing this extension when I couldn't find a simple new tab replac
 ### What's Next
 This software was never intended to achieve a polished product state but rather to be decently functional. Additionally it was a way to further explore Vue and to have a look at the Chrome extension API. The extension is fully functional albeit missing some (non-critical) features. It is currently not in active development but it might be updated if time allows. Some of the possible improvements that could be done:
 
-* NEW - Drag and drop support to rearrange items. Drag and drop support is already implemented (draggabilly / commented out) but it needs state saving and restoring.
-* FIX - The chrome listeners for bookmark changes should be moved to a separate script that is run permanently in the background instead of just on the new tab page. This was an architectural mistake that should have been foreseen from the beginning 🙈
-* NEW - Fix order of items in a list and add listener for items reordered in the Chrome UI. Right now the order is not necessarily the same as in the UI but is rather given by how the data is stored by Chrome.
+* [ ] Drag and drop support to rearrange items. Drag and drop support is already implemented (draggabilly / commented out) but it needs state saving and restoring.
+* [ ] The chrome listeners for bookmark changes should be moved to a separate script that is run permanently in the background instead of just on the new tab page.
+* [ ] Fix order of items in a list and add listener for items reordered in the Chrome UI. Right now the order is given by how the data is stored by Chrome.
+* [ ] Add support to change color of list header
+* [ ] Fix svg scale issue on transition
 
 ### Build
 `npm run watch` - development build
