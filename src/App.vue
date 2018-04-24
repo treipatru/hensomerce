@@ -51,6 +51,7 @@
                   <list
                     :list-data="list"
                     v-on:deleteList="deleteList"
+                    v-on:updateHeaderColor="updateHeaderColor"
                   >
                   </list>
                 </div>
@@ -142,7 +143,10 @@ export default {
       },
       onboarding: false,
       windowOpen: false,
-      viewActive: ''
+      viewActive: '',
+      themeColors: [
+        'default', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'
+      ]
     }
   },
 
@@ -203,6 +207,18 @@ export default {
       }
 
       this.syncStorageUp()
+    },
+
+    updateHeaderColor: function (id) {
+      let vm = this
+      // Make sure we're changing the color
+      let colors = vm.themeColors.filter(function (str) {
+        return str !== vm.storeCache.lists[id].color
+      })
+      let newColor = colors[Math.floor(Math.random() * colors.length)]
+
+      Vue.set(vm.storeCache.lists[id], 'color', newColor)
+      vm.syncStorageUp()
     },
 
     deleteLink: function (id, parentId) {
