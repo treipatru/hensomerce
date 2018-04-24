@@ -71,22 +71,31 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+        transition: all 0.3s ease-out;
 
-        @include theme(light, background, $li-accent-2);
-        @include theme(light, color, $li-light);
-
-        @include theme(dark, background, $dk-accent-2);
-        @include theme(dark, color, darken($dk-base, 45%));
+        &.default { background: #ea404e; color: lighten(#EA404E, 45%)}
+        &.a { background: #DE2C2E; color: lighten(#DE2C2E, 30%); }
+        &.b { background: #37ae52; color: darken(#37ae52, 30%); }
+        &.c { background: #6E1E45; color: lighten(#6E1E45, 30%); }
+        &.d { background: #1c4a86; color: lighten(#1c4a86, 30%); }
+        &.e { background: #FF6D24; color: darken(#FF6D24, 30%); }
+        &.f { background: #34454a; color: lighten(#34454A, 30%); }
+        &.g { background: #89cf68; color: darken(#89cf68, 30%); }
+        &.h { background: #4b2819; color: lighten(#4B2819, 30%); }
+        &.i { background: #FFC84E; color: darken(#FFC84E, 30%); }
+        &.j { background: #A3A7AA; color: darken(#A3A7AA, 30%); }
 
         p {
           margin: 0;
           user-select: none;
-          font-size: 1rem;
+          font-size: 0.9rem;
           display: inline-block;
+          font-weight: 500;
+          width: 100%;
         }
 
         .close-icon {
-          opacity: 0.3;
+          opacity: 0.15;
           transition: all 0.4s cubic-bezier(.25, .8, .25, 1);
 
           &:hover {
