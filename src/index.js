@@ -1,8 +1,8 @@
-import Vue from 'Vue'
+import Vue from 'vue'
 import App from './App.vue'
 import VuePackeryPlugin from './plugins/packeryPlugin'
 
-import '../styles/app.scss'
+import '../styles/App.scss'
 
 Vue.use(VuePackeryPlugin)
 
