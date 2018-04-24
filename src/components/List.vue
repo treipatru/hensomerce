@@ -1,10 +1,7 @@
 <template>
     <div class="list">
-      <div
-        v-bind:class="['header', this.listData.color]"
-        @click="changeColor"
-      >
-        <p>{{this.listData.name}}</p>
+      <div v-bind:class="['header', this.listData.color]">
+        <p @click="changeColor">{{this.listData.name}}</p>
         <i
           class="material-icons close"
           @click="deleteList"
