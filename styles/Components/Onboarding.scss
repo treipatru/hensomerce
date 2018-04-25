@@ -19,14 +19,6 @@
       align-content: center;
       position: relative;
       height: 100%;
-
-      svg.ill {
-        transform: scale(4) translateY(-20%);
-        opacity: 0.05;
-
-        @include theme(light, fill, $li-accent-2);
-        @include theme(dark, fill, $dk-accent-1);
-      }
     }
   }
 }

@@ -3,6 +3,7 @@
     id="hensomerce"
     v-bind:class="{active: windowOpen}"
   >
+    <hen v-bind:class="{hidden: windowOpen}"></hen>
 
     <menu-button
       v-on:emitButtonClick="handleMenuClick"
@@ -108,6 +109,7 @@ import Vue from 'vue'
 import MenuButton from './components/MenuButton.vue'
 import AppMenu from './components/AppMenu.vue'
 import List from './components/List.vue'
+import Hen from './components/Hen.vue'
 
 import Onboarding from './components/Onboarding.vue'
 import AddFolder from './components/AddFolder.vue'
@@ -123,6 +125,7 @@ export default {
     MenuButton,
     AppMenu,
     List,
+    Hen,
     Onboarding,
     AddFolder,
     Settings,
