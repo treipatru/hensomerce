@@ -74,16 +74,16 @@
         transition: all 0.3s ease-out;
 
         &.default { background: #ea404e; color: lighten(#EA404E, 45%)}
-        &.a { background: #DE2C2E; color: lighten(#DE2C2E, 30%); }
-        &.b { background: #37ae52; color: darken(#37ae52, 30%); }
-        &.c { background: #6E1E45; color: lighten(#6E1E45, 30%); }
-        &.d { background: #1c4a86; color: lighten(#1c4a86, 30%); }
-        &.e { background: #FF6D24; color: darken(#FF6D24, 30%); }
-        &.f { background: #34454a; color: lighten(#34454A, 30%); }
-        &.g { background: #89cf68; color: darken(#89cf68, 30%); }
-        &.h { background: #4b2819; color: lighten(#4B2819, 30%); }
-        &.i { background: #FFC84E; color: darken(#FFC84E, 30%); }
-        &.j { background: #A3A7AA; color: darken(#A3A7AA, 30%); }
+        &.a { background: #8FBC8F; color: lighten(#8FBC8F, 35%); }
+        &.b { background: #37ae52; color: darken(#37ae52, 35%); }
+        &.c { background: #7f6c99; color: lighten(#7F6C99, 35%); }
+        &.d { background: #2260a8; color: lighten(#2260a8, 45%); }
+        &.e { background: #FF6D24; color: lighten(#FF6D24, 40%); }
+        &.f { background: #34454a; color: lighten(#34454A, 35%); }
+        &.g { background: #89cf68; color: darken(#89cf68, 35%); }
+        &.h { background: #784528; color: lighten(#784528, 35%); }
+        &.i { background: #FFC84E; color: darken(#FFC84E, 35%); }
+        &.j { background: #A3A7AA; color: darken(#A3A7AA, 35%); }
 
         p {
           margin: 0;
