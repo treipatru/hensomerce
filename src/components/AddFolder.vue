@@ -137,7 +137,7 @@
               id: id,
               links: {},
               name: listTitle,
-              color: 'default'
+              color: vm.themeColors[Math.floor(Math.random() * vm.themeColors.length)]
             }
 
             for (let elem of res) {
@@ -165,7 +165,7 @@
               id: id,
               links: {},
               name: listTitle,
-              color: 'default'
+              color: vm.themeColors[Math.floor(Math.random() * vm.themeColors.length)]
             }
 
             for (let i = 0; i < res.length; i++) {
@@ -225,6 +225,10 @@
       lists: {
         type: Object,
         required: false
+      },
+      themeColors: {
+        type: Array,
+        required: true
       }
     }
   }

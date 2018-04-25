@@ -77,6 +77,7 @@
                 v-if="viewActive === 'add'"
                 :key="4"
                 :lists="storeCache.lists"
+                :themeColors="themeColors"
                 v-on:saveList="saveList"
                 v-on:cancelSelection="windowOpen = !windowOpen"
               >
