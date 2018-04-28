@@ -2,7 +2,7 @@
   "name": "Hensomerce",
   "version": "0.9.1",
   "manifest_version": 2,
-  "description": "Homescreen - New tab extension for Chrome",
+  "description": "No-nonsense home screen replacement. Add your bookmark folders as lists in newtab.",
   "homepage_url": "https://github.com/treipatru/hensomerce",
   "icons": {
     "16": "icons/icon16.png",
